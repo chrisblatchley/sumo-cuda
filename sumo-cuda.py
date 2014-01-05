@@ -1,4 +1,13 @@
 #!/usr/bin/python
+##
+# @file: car.py
+# @author: Chris Blatchley
+# @author: Thad Bond
+# @date: Sun, Jan 5, 2014
+# @version: 0.1
+# ##
+# Car object implementation.
+##
 
 from car import Car
 
