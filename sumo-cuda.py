@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from car import Car
+
 help_string = """SUMO-CUDA
     USAGE: python sumo-cuda.py [options] network.netccfg
 
@@ -7,8 +9,8 @@ Authors: Thaddeus Bond, Chris Blatchley
 """
 
 def main():
-    print help_string
-
+    miata = Car(0, 60, 5, 2)
+    miata.honk()
 
 if __name__ == '__main__':
     main()
