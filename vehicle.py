@@ -1,10 +1,4 @@
 ##
-# @file Vehicle.py
-# @author Chris Blatchley
-# @author Thad Bond
-# @date Sunday, Jan 5, 2014
-# @version 0.1
-##
 # @file: vehicle.py
 # @author: Chris Blatchley
 # @author: Thad Bond
@@ -34,4 +28,4 @@ class Vehicle(object):
 		self.currEdge = self.route.begin()
 
 	def isOnRoad(self):
-		return true
+		return True
