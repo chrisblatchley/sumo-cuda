@@ -18,9 +18,9 @@ class Edge(object):
 	# @param function		Basic type of the edge
 	# @param streetName		Street name of edge
 	##
-	def __init__(self, id, numericalID, function, streetName):
+	def __init__(self, uid, numericalID, function, streetName):
 		super(Edge, self).__init__()
-		self.id = id
+		self.uid = uid
 		self.numericalID = numericalID
 		self.function = function
 		self.streetName = streetName

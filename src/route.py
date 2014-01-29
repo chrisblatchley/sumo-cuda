@@ -18,9 +18,9 @@ class Route(object):
 	# @param isPermanent	True if the route persists
 	# @return 		Initialized Route Object
 	##
-	def __init__(self, id, edges, isPermanent):
+	def __init__(self, uid, edges, isPermanent):
 		super(Route, self).__init__()
-		self.id = id
+		self.uid = uid
 		self.edges = edges
 		self.isPermanent = isPermanent
 

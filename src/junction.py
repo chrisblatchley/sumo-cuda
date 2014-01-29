@@ -18,8 +18,8 @@ class Junction(object):
 	# @param shape	The shape of the junction
 	# @return 	Initialized Junction Object
 	##
-	def __init__(self, id, position, shape):
+	def __init__(self, uid, position, shape):
 		super(Junction, self).__init__()
-		self.id = id
+		self.uid = uid
 		self.position = position
 		self.shape = shape
