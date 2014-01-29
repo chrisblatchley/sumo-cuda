@@ -34,5 +34,5 @@ class LaneChanger(object):
 	# @param toLane	The destination lane
 	# @param vehicle The vehicle to change lanes
 	##
-	def buildVehicle(self, fromLane, toLane, vehicle):
+	def performChange(self, fromLane, toLane, vehicle):
 		pass

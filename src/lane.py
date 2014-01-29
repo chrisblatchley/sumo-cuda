@@ -16,10 +16,10 @@ class Lane(object):
 	# 
 	# @return	Initialized Lane object
 	##
-	def __init__(self, id, maxSpeed, length):
+	def __init__(self, uid, maxSpeed, length):
 		super(Lane, self).__init__()
 		self.vehicles = []
-		self.id = id
+		self.uid = uid
 		self.maxSpeed = maxSpeed
 		self.length = length
 
