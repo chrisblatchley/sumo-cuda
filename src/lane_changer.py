@@ -17,7 +17,7 @@ class LaneChanger(object):
 	# @return	Initialized LaneChanger object
 	##
 	def __init__(self, lanes):
-		super(VehicleControl, self).__init__()
+		super(LaneChanger, self).__init__()
 		self.lanes = lanes
 
 	##
