@@ -29,3 +29,9 @@ class Vehicle(object):
 
 	def isOnRoad(self):
 		return True
+
+	def planMove(self, predecessor, lengthsInFront):
+		pass
+
+	def executeMove(self):
+		pass

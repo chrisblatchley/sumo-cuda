@@ -14,14 +14,33 @@ class Lane(object):
 	##
 	# Constructor for Lane
 	# 
+	# @param uid	The lane's id
+	# @param maxSpeed	The lane's max speed
+	# @param length	The lane's length
+	# @param edge	The edge this lane belongs to
 	# @return	Initialized Lane object
 	##
-	def __init__(self, uid, maxSpeed, length):
+	def __init__(self, uid, maxSpeed, length, edge):
 		super(Lane, self).__init__()
 		self.vehicles = []
 		self.uid = uid
 		self.maxSpeed = maxSpeed
 		self.length = length
+		self.edge = edge
+
+	##
+	# planMovements
+	##
+	def planMovements(self):
+		pass
+
+	##
+	# executeMovements
+	# 
+	# @param into	Lane moving into
+	##
+	def executeMovements(self):
+		pass
 
 	##
 	# Check whether a lane merge can be done
