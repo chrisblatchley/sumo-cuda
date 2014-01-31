@@ -15,32 +15,42 @@ class Lane(object):
 	# Constructor for Lane
 	# 
 	# @param uid	The lane's id
-	# @param maxSpeed	The lane's max speed
-	# @param length	The lane's length
 	# @param edge	The edge this lane belongs to
 	# @return	Initialized Lane object
 	##
-	def __init__(self, uid, maxSpeed, length, edge):
+	def __init__(self, uid, edge):
 		super(Lane, self).__init__()
 		self.vehicles = []
 		self.uid = uid
-		self.maxSpeed = maxSpeed
-		self.length = length
 		self.edge = edge
 
 	##
-	# planMovements
+	# Send off relevant information to the vehicles in the lane to plan movement
 	##
 	def planMovements(self):
-		pass
+		#Start off with the "first" vehicle being None, this lets the first car know
+		#that there aren't any cars in front of it.
+		predVehicle = None
+		#For each vehicle in our lane
+		for vehicle in self.vehicles:
+			#If there are no cars in front, free space is the distance to end of lane
+			#otherwise the free space is the pos of the predecessor minus our pos
+			if predVehicle = None:
+				freeSpace = self.edge.getLength() - vehicle.getPosition()
+			else:
+				freeSpace = predVehicle.getPosition() - vehicle.getPosition()
+			#Send the information to the vehicle, then set it as the predecessor
+			vehicle.planMove(predVehicle.getVehicle(), freeSpace)
+			predVehicle = vehicle
 
 	##
-	# executeMovements
-	# 
-	# @param into	Lane moving into
+	# Execute the movements of all vehicles in the lane, updating their position
 	##
 	def executeMovements(self):
-		pass
+		for vehicle in self.vehicles:
+			#Executes the movement function within the vehicle
+			#Also passes the vehicle position object so that the vehicle updates it appropriately
+			vehicle.getVehicle().executeMovements(vehicle)
 
 	##
 	# Check whether a lane merge can be done
@@ -61,8 +71,11 @@ class Lane(object):
 		pass
 
 	##
-	# Process vehicle movements for the lane
-	# 
+	# Remove a vehicle from this lane that has merged or reached the end of the lane
+	#
+	# @param vehicle 	The vehicle to remove from the lane
 	##
-	def processMove(self):
-		pass
+	def removeVehicle(self, vehicle):
+		self.vehicles.remove(vehicle)
+
+	
