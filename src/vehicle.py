@@ -25,13 +25,56 @@ class Vehicle(object):
 		self.route = route
 		self.style = style
 		self.speed = speed
+		self.pos   = 0
 		self.currEdge = self.route.begin()
 
+	##
+	# isOnRoad
+	# @brief true if vehicle is driving rather than waiting
+	##
 	def isOnRoad(self):
 		return True
 
-	def planMove(self, predecessor, lengthsInFront):
+	##
+	# hasArrived
+	# @brief true if the vehicle is at the final position
+	##
+	def hasArrived(self):
 		pass
 
+	# ##
+	# # _planMove
+	# # @brief This method does the heavy lifting for moving a vehicle
+	# # 
+	# # @param pred 	The vehicle's predecessor
+	# ##
+	# def _planMove(self, pred):
+	# 	pass
+
+	# ##
+	# # _executeMove
+	# # @brief does the moving execution 
+	# ##
+	# def _executeMove(self):
+	# 	pass
+
+
+	##
+	# planMove
+	# @brief public method called on each running vehicle
+	# 
+	# @param pred	the vehicle that is infront
+	# @param lengthsInFront	the lengths that a vehicle is ahead
+	##
+	def planMove(self, pred, lengthsInFront):
+		# self._planMove(pred)
+		length = self.style.length
+		
+		
+
+	##
+	# executeMove
+	# @brief executes the move planned by planMove
+	##
 	def executeMove(self):
 		pass

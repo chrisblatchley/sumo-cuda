@@ -18,9 +18,11 @@ class VehicleControl(object):
 	##
 	def __init__(self):
 		super(VehicleControl, self).__init__()
-		self.loadedVehicles = 0
-		self.runningVehicles = 0
-		self.discardedVehicles = 0
+		self.loadedVehicles = []
+		self.loadedVehicleNo = 0
+		self.runningVehicleNo = 0
+		self.endedVehicleNo
+		self.discardedVehiclesNo = 0
 		self.collisions = 0
 		self.teleports = 0
 
@@ -29,8 +31,10 @@ class VehicleControl(object):
 	# 
 	# @param route	The vehicle route
 	# @param style	The vehicle style
-	def buildVehicle(self, route, type):
-		pass
+	def buildVehicle(self, route, style):
+		self.loadedVehicleNo = self.loadedVehicleNo + 1
+		newVehicle = new Vehicle(route, style, style.speed)
+		return newVehicle
 
 	##
 	# Add vehicle to structure if non-existent
@@ -38,7 +42,11 @@ class VehicleControl(object):
 	# @param uid	String uid for vehicle
 	# @param vehicle 	Vehicle object to insert
 	def addVehicle(self, uid, vehicle):
-		pass
+		if uid not in self.loadedVehicles:
+			self.loadedVehicles[uid] = vehicle
+			return True
+		return False
+
 
 	##
 	# Get a vehicle from the data structure
@@ -46,7 +54,7 @@ class VehicleControl(object):
 	# @param uid	Vehicle uid
 	##
 	def getVehicle(self, uid):
-		pass
+		return self.loadedVehicles[uid]
 
 	##
 	# Delete a vehicle from the data structure
@@ -55,7 +63,14 @@ class VehicleControl(object):
 	# @param discard	Should discard the vehicle, false is default
 	##
 	def deleteVehicle(self, vehicle, discard = False):
-		pass
+		self.endedVehiclesNo = self.endedVehiclesNo + 1
+		if discard:
+			self.discardedVehicles = self.discardedVehicles + 1
+		try:
+			self.loadedVehicles.pop(vehicle.uid)
+		except KeyError, e:
+			print "Tried to remove a non-existent vehicle"
+
 
 	##
 	# addWaiting
