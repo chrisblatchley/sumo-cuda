@@ -25,6 +25,7 @@ class Vehicle(object):
 		self.route = route
 		self.style = style
 		self.speed = speed
+		self.currSpeed = 0
 		self.pos   = 0
 		self.currEdge = self.route.begin()
 
@@ -64,17 +65,30 @@ class Vehicle(object):
 	# @brief public method called on each running vehicle
 	# 
 	# @param pred	the vehicle that is infront
-	# @param lengthsInFront	the lengths that a vehicle is ahead
+	# @param distance	the distance a vehicle is ahead
 	##
-	def planMove(self, pred, lengthsInFront):
-		# self._planMove(pred)
-		length = self.style.length
+	def planMove(self, pred, distance):
+		if not pred:
+			distanceToStop = distance
+		else:
+			distanceToStop = self.currEdge.length - self.pos
+		approachingStop = distanceToStop < 200 # Braking distance in meters
 		
+		#find acceleration factor
+		if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style.length * 2):
+			accelFactor = -2.5
+		elif self.currSpeed < self.speed:
+			accelFactor = 2.5
+		else:
+			accelFactor = 0
+
+		proposedNewPosition = self.pos + (self.speed + accelFactor)
 		
+		return {"accel": accelFactor, "pos": proposedNewPosition}
 
 	##
 	# executeMove
 	# @brief executes the move planned by planMove
 	##
-	def executeMove(self):
+	def executeMove(self, ):
 		pass
