@@ -9,6 +9,10 @@
 # Car object implementation.
 ##
 
+from edge import Edge
+from lane import Lane
+from route import Route
+from junction import Junction
 from vehicle import Vehicle
 
 help_string = """SUMO-CUDA
@@ -22,3 +26,10 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+def tests():
+
+	# single looping road tests
+	edgeA = Edge("A", none)
+	

@@ -20,11 +20,10 @@ class Vehicle(object):
 	# @param speed	max speed a vehicle will drive
 	# @return Initialized Vehicle object
 	##
-	def __init__(self, route, style, speed):
+	def __init__(self, route, style):
 		super(Vehicle, self).__init__()
 		self.route = route
 		self.style = style
-		self.speed = speed
 		self.currSpeed = 0
 		self.pos   = 0
 		self.currEdge = self.route.begin()
@@ -75,7 +74,7 @@ class Vehicle(object):
 		approachingStop = distanceToStop < 200 # Braking distance in meters
 		
 		#find acceleration factor
-		if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style.length * 2):
+		if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style["length"] * 2):
 			accelFactor = -2.5
 		elif self.currSpeed < self.speed:
 			accelFactor = 2.5
@@ -84,11 +83,11 @@ class Vehicle(object):
 
 		proposedNewPosition = self.pos + (self.speed + accelFactor)
 		
-		return {"accel": accelFactor, "pos": proposedNewPosition}
+		return proposedNewPosition
 
 	##
 	# executeMove
 	# @brief executes the move planned by planMove
 	##
-	def executeMove(self, ):
-		pass
+	def executeMove(self, newPos):
+		self.pos = newPos

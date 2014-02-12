@@ -20,12 +20,10 @@ class Edge(object):
 	# @param length			The length of the edge
 	# @param maxSpeed		The maximum speed that may be traveled on the edge
 	##
-	def __init__(self, uid, numericalID, function, streetName, length, maxSpeed):
+	def __init__(self, uid, function, length, maxSpeed):
 		super(Edge, self).__init__()
 		self.uid = uid
-		self.numericalID = numericalID
 		self.function = function
-		self.streetName = streetName
 		self.length = length
 		self.maxSpeed = maxSpeed
 		self.lanes = []
