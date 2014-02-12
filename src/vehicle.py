@@ -9,85 +9,56 @@
 ##
 
 class Vehicle(object):
+    """Vehicle Object to simulate a running Vehicle in a road network.py."""
 
-	"""Vehicle Object to simulate a running Vehicle in a road network."""
+    ##
+    # Contructor for Vehicle
+    #
+    # @param route	route for vehicle to take
+    # @param style	the vehicle's type
+    # @param speed	max speed a vehicle will drive
+    # @return Initialized Vehicle object
+    ##
+    def __init__(self, route, style):
+        super(Vehicle, self).__init__()
+        self.route = route
+        self.style = style
+        self.currSpeed = 0
+        self.pos = 0
+        self.nextPos = 0
+        self.currEdge = self.route.begin()
 
-	##
-	# Contructor for Vehicle
-	# 
-	# @param route	route for vehicle to take
-	# @param style	the vehicle's type
-	# @param speed	max speed a vehicle will drive
-	# @return Initialized Vehicle object
-	##
-	def __init__(self, route, style):
-		super(Vehicle, self).__init__()
-		self.route = route
-		self.style = style
-		self.currSpeed = 0
-		self.pos   = 0
-		self.currEdge = self.route.begin()
+    ##
+    # planMove
+    # @brief public method called on each running vehicle
+    #
+    # @param pred	the vehicle that is infront
+    # @param distance	the distance a vehicle is ahead
+    ##
+    def planMove(self, pred, distance):
+        if not pred:
+            distanceToStop = distance
+        else:
+            distanceToStop = self.currEdge.length - self.pos
+        approachingStop = distanceToStop < 200  # Braking distance in meters
 
-	##
-	# isOnRoad
-	# @brief true if vehicle is driving rather than waiting
-	##
-	def isOnRoad(self):
-		return True
+        #find acceleration factor
+        if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style["length"] * 2):
+            accelFactor = -2.5
+        elif self.currSpeed < self.speed:
+            accelFactor = 2.5
+        else:
+            accelFactor = 0
 
-	##
-	# hasArrived
-	# @brief true if the vehicle is at the final position
-	##
-	def hasArrived(self):
-		pass
+        proposedNewPosition = self.pos + (self.speed + accelFactor)
 
-	# ##
-	# # _planMove
-	# # @brief This method does the heavy lifting for moving a vehicle
-	# # 
-	# # @param pred 	The vehicle's predecessor
-	# ##
-	# def _planMove(self, pred):
-	# 	pass
+        self.nextPos = proposedNewPosition
+        print("Pos: ", self.pos)
 
-	# ##
-	# # _executeMove
-	# # @brief does the moving execution 
-	# ##
-	# def _executeMove(self):
-	# 	pass
-
-
-	##
-	# planMove
-	# @brief public method called on each running vehicle
-	# 
-	# @param pred	the vehicle that is infront
-	# @param distance	the distance a vehicle is ahead
-	##
-	def planMove(self, pred, distance):
-		if not pred:
-			distanceToStop = distance
-		else:
-			distanceToStop = self.currEdge.length - self.pos
-		approachingStop = distanceToStop < 200 # Braking distance in meters
-		
-		#find acceleration factor
-		if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style["length"] * 2):
-			accelFactor = -2.5
-		elif self.currSpeed < self.speed:
-			accelFactor = 2.5
-		else:
-			accelFactor = 0
-
-		proposedNewPosition = self.pos + (self.speed + accelFactor)
-		
-		return proposedNewPosition
-
-	##
-	# executeMove
-	# @brief executes the move planned by planMove
-	##
-	def executeMove(self, newPos):
-		self.pos = newPos
+    ##
+    # executeMove
+    # @brief executes the move planned by planMove
+    ##
+    def executeMove(self):
+        self.pos = self.nextPos
+        self.nextPos = self.pos

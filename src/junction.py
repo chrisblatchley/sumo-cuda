@@ -9,17 +9,23 @@
 ##
 
 class Junction(object):
-	"""Junction object to control behavior in edge junctions"""
+    """Junction object to control behavior in edge junctions"""
 
-	##
-	# Junction Constructor
-	# @param id		The string identification
-	# @param postition	The position of the junction
-	# @param shape	The shape of the junction
-	# @return 	Initialized Junction Object
-	##
-	def __init__(self, uid, position, shape):
-		super(Junction, self).__init__()
-		self.uid = uid
-		self.position = position
-		self.shape = shape
+    ##
+    # Junction Constructor
+    # @param id		The string identification
+    # @param postition	The position of the junction
+    # @param shape	The shape of the junction
+    # @return 	Initialized Junction Object
+    ##
+    def __init__(self, uid, position, shape):
+        super(Junction, self).__init__()
+        self.uid = uid
+        self.position = position
+        self.shape = shape
+
+    ##
+    # runTimestep
+    ##
+    def runTimestep(self):
+        pass

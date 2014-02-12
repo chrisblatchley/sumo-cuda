@@ -9,30 +9,30 @@
 ##
 
 class LaneChanger(object):
-	"""LaneChanger is responsible for coordinating between lanes and vehicles for lane changes"""
+    """LaneChanger is responsible for coordinating between lanes and vehicles for lane changes"""
 
-	##
-	# Constructor for LaneChanger
-	# 
-	# @return	Initialized LaneChanger object
-	##
-	def __init__(self, lanes):
-		super(LaneChanger, self).__init__()
-		self.lanes = lanes
+    ##
+    # Constructor for LaneChanger
+    #
+    # @return	Initialized LaneChanger object
+    ##
+    def __init__(self, lanes):
+        super(LaneChanger, self).__init__()
+        self.lanes = lanes
 
-	##
-	# checkNeededChanges	Checks if lanes/vehicles are in need of a lane change
-	# 
-	##
-	def checkNeededChanges(self):
-		pass
+    ##
+    # checkNeededChanges	Checks if lanes/vehicles are in need of a lane change
+    #
+    ##
+    def checkNeededChanges(self):
+        pass
 
-	##
-	# performChange	Performs a lane change
-	# 
-	# @param fromLane	The originating lane
-	# @param toLane	The destination lane
-	# @param vehicle The vehicle to change lanes
-	##
-	def performChange(self, fromLane, toLane, vehicle):
-		pass
+    ##
+    # performChange	Performs a lane change
+    #
+    # @param fromLane	The originating lane
+    # @param toLane	The destination lane
+    # @param vehicle The vehicle to change lanes
+    ##
+    def performChange(self, fromLane, toLane, vehicle):
+        pass
