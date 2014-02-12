@@ -13,17 +13,34 @@ class Edge(object):
 
 	##
 	# Edge Contructor
-	# @param id 	string identification
+	# @param uid 			unique string identification
 	# @param numericalID	Numerical identification number
 	# @param function		Basic type of the edge
 	# @param streetName		Street name of edge
+	# @param length			The length of the edge
+	# @param maxSpeed		The maximum speed that may be traveled on the edge
 	##
-	def __init__(self, uid, numericalID, function, streetName):
+	def __init__(self, uid, numericalID, function, streetName, length, maxSpeed):
 		super(Edge, self).__init__()
 		self.uid = uid
 		self.numericalID = numericalID
 		self.function = function
 		self.streetName = streetName
-		self.lanes = 0
+		self.length = length
+		self.maxSpeed = maxSpeed
+		self.lanes = []
 		self.laneChanger = none
 		self.isRotary = false
+
+	##
+	# Add a lane to the edge
+	# @param uid		The lane's unique identifier
+	##
+	def addlane(self, uid):
+		newLane = Lane(uid, self)
+
+	##
+	# Once all lanes have been loaded for this edge, we can init the lane changer for it
+	##
+	def initChanger(self):
+		self.laneChanger = LaneChanger(self.lanes)
