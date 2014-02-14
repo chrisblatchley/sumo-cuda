@@ -32,7 +32,7 @@ class Route(object):
         return self.edges[ self.edges.getIndex( edge ) + 1 ] #Gets the index for the passed edge, then returns the edge object for the next edge
 
     def begin(self):
-        pass
+        return self.edges[0]
 
     def end(self):
-        pass
+        return self.edges[len(edges) - 1]

@@ -36,9 +36,9 @@ class Lane(object):
             #If there are no cars in front, free space is the distance to end of lane
             #otherwise the free space is the pos of the predecessor minus our pos
             if predVehicle is None:
-                freeSpace = self.edge.getLength() - vehicle.getPosition()
+                freeSpace = self.edge.length - vehicle.pos
             else:
-                freeSpace = predVehicle.getPosition() - vehicle.getPosition()
+                freeSpace = predVehicle.pos - vehicle.pos
             #Send the information to the vehicle, then set it as the predecessor
             vehicle.planMove(predVehicle, freeSpace)
             predVehicle = vehicle

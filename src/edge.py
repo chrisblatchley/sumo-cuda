@@ -35,10 +35,11 @@ class Edge(object):
 
     ##
     # Add a lane to the edge
-    # @param uid		The lane's unique identifier
+    # @param uid	The lane's unique identifier
     ##
     def addlane(self, uid):
         newLane = Lane(uid, self)
+        self.lanes.append(newLane)
 
     ##
     # Once all lanes have been loaded for this edge, we can init the lane changer for it
@@ -60,4 +61,4 @@ class Edge(object):
     # @param vehicle The vehicle to add
     ##
     def addVehicle(self, vehicle):
-        self.lanes[len(lanes)-1].addVehicle(vehicle)
+        self.lanes[ len(self.lanes) - 1 ].addVehicle( vehicle )

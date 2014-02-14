@@ -29,10 +29,12 @@ def main():
 def tests():
     """Run a basic test"""
     network = Network()
-    edge = Edge("A", None, 1000, 30)
-    route = Route("Straight", [edge], True)
+    edge = Edge("edgeA", None, 1000, 30)
+    route = Route("routeA", [edge, edge], True)
     network.addEdge( edge )
     network.addRoute( route )
+    edge.addlane("laneA")
+    print(edge.lanes)
 
     network.runSimulation()
 

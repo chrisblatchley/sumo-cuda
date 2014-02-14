@@ -7,8 +7,10 @@
 # ##
 # Lane object for an edge
 ##
+from src import vehicle_control
 
 from src.vehicle_control import VehicleControl
+from src.vehicle import Vehicle
 
 class Network(object):
     """Network Object to contain and run the edges, junctions, and the main simulation loop
@@ -46,7 +48,8 @@ class Network(object):
     # runSimulation
     ##
     def runSimulation(self):
-        self.vehicleController.addVehicle()
+        vehicle = self.vehicleController.buildVehicle(self.routes[0], {"length": 5, "speed": 30})
+        self.vehicleController.addVehicle(vehicle)
 
         while self.timeStep < self.maxTime:
 

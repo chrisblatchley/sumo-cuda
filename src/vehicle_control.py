@@ -9,6 +9,7 @@
 ##
 
 from src.vehicle import Vehicle
+from src.edge import Edge
 
 class VehicleControl(object):
     """VehicleControl is responsible for building and deleting cars"""
@@ -35,7 +36,7 @@ class VehicleControl(object):
     # @param style	The vehicle style
     def buildVehicle(self, route, style):
         self.loadedVehicleNo = self.loadedVehicleNo + 1
-        newVehicle = Vehicle(route, style, style.speed)
+        newVehicle = Vehicle(route, style)
         return newVehicle
 
     ##
@@ -43,9 +44,11 @@ class VehicleControl(object):
     #
     # @param uid	String uid for vehicle
     # @param vehicle 	Vehicle object to insert
-    def addVehicle(self, uid, vehicle):
-        if uid not in self.loadedVehicles:
-            self.loadedVehicles[uid] = vehicle
+    def addVehicle(self, vehicle):
+        if vehicle not in self.loadedVehicles:
+            self.loadedVehicles.append(vehicle)
+            edge = vehicle.route.begin()
+            edge.addVehicle(vehicle)
             return True
         return False
 
@@ -55,8 +58,11 @@ class VehicleControl(object):
     #
     # @param uid	Vehicle uid
     ##
-    def getVehicle(self, uid):
-        return self.loadedVehicles[uid]
+    def getVehicle(self, vehicle):
+        if vehicle in self.loadedVehicles:
+            vehicle
+        else:
+            None
 
     ##
     # Delete a vehicle from the data structure
