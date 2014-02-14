@@ -80,4 +80,8 @@ class VehicleControl(object):
     # refreshTimestep
     ##
     def refreshTimestep(self):
-        pass
+        for vehicle in self.loadedVehicles:
+            if vehicle.currEdge is vehicle.route.end():
+                #The vehicle is on the last edge of their route
+                if vehicle.pos > vehicle.route.end().length - 10: #Are we within a buffer zone of the end of the edge?
+                    self.deleteVehicle(vehicle)
