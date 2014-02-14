@@ -53,3 +53,11 @@ class Edge(object):
         for lane in self.lanes:
             lane.planMovements()
             lane.executeMovements()
+
+    ##
+    # addVehicle
+    # Add a vehicle that is coming from a junction
+    # @param vehicle The vehicle to add
+    ##
+    def addVehicle(self, vehicle):
+        self.lanes[len(lanes)].mergeVehicle(vehicle)

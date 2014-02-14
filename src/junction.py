@@ -23,9 +23,21 @@ class Junction(object):
         self.uid = uid
         self.position = position
         self.shape = shape
+        self.queue = [] #The vehicles waiting to pass through
 
     ##
     # runTimestep
     ##
     def runTimestep(self):
-        pass
+        if self.shape = "throughway":
+            for vehicle in self.queue:
+                #Get vehicle route
+                #edge.addVehicle(vehicle)
+                self.queue.remove(vehicle) #The vehicle has passed through, get rid of it
+
+    ##
+    # addToQueue
+    # @param vehicle The vehicle to add to the queue
+    ##
+    def addToQueue(self, vehicle):
+        self.queue.append(vehicle)
