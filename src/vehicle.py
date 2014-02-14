@@ -36,13 +36,6 @@ class Vehicle(object):
         self.pos = 0
         self.currEdge = lane.edge
 
-
-    ##
-    # getRoute  Route accessor 
-    ##
-    def getRoute(self):
-        return self.route
-
     ##
     # planMove
     # @brief public method called on each running vehicle
