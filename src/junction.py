@@ -29,10 +29,10 @@ class Junction(object):
     # runTimestep
     ##
     def runTimestep(self):
-        if self.shape = "throughway":
-            for vehicle in self.queue:
-                #Get vehicle route
-                #edge.addVehicle(vehicle)
+        if self.shape is "throughway":
+            for vehicle in self.queue: #Since its a throughway, we might as well just send everyone through
+                newEdge = vehicle.getRoute().getNextEdge(vehicle.currEdge) #Get the next edge for the vehicle's edge
+                newEdge.addVehicle(vehicle) #Add the vehicle to the new edge
                 self.queue.remove(vehicle) #The vehicle has passed through, get rid of it
 
     ##

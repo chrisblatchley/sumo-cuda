@@ -60,4 +60,4 @@ class Edge(object):
     # @param vehicle The vehicle to add
     ##
     def addVehicle(self, vehicle):
-        self.lanes[len(lanes)].mergeVehicle(vehicle)
+        self.lanes[len(lanes)-1].addVehicle(vehicle)

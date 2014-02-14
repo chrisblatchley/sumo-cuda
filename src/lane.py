@@ -71,6 +71,16 @@ class Lane(object):
         pass
 
     ##
+    # addVehicle
+    # Add a vehicle to the start of the lane
+    #
+    # @param vehicle    The vehicle to add to the lane
+    ##
+    def addVehicle(self, vehicle):
+        self.vehicles.append(vehicle)
+        vehicle.enterLane(self)
+
+    ##
     # Remove a vehicle from this lane that has merged or reached the end of the lane
     #
     # @param vehicle 	The vehicle to remove from the lane

@@ -24,6 +24,13 @@ class Route(object):
         self.edges = edges
         self.isPermanent = isPermanent
 
+    ##
+    # getNextEdge
+    # @param edge   The last edge that the vehicle resided in
+    ## 
+    def getNextEdge(self, edge):
+        return self.edges[ self.edges.getIndex( edge ) + 1 ] #Gets the index for the passed edge, then returns the edge object for the next edge
+
     def begin(self):
         pass
 
