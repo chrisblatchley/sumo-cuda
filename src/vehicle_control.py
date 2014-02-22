@@ -8,8 +8,8 @@
 # Vehicle controller object implementation.
 ##
 
-from src.vehicle import Vehicle
-from src.edge import Edge
+from vehicle import Vehicle
+from edge import Edge
 
 class VehicleControl(object):
     """VehicleControl is responsible for building and deleting cars"""

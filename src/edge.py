@@ -8,8 +8,8 @@
 # Edge object from one junction to another.
 ##
 
-from src.lane import Lane
-from src.lane_changer import LaneChanger
+from lane import Lane
+from lane_changer import LaneChanger
 
 class Edge(object):
     """Edge is a road"""

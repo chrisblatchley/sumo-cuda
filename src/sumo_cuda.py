@@ -9,12 +9,12 @@
 # Car object implementation.
 ##
 
-from src.network import Network
-from src.edge import Edge
-from src.lane import Lane
-from src.route import Route
-from src.junction import Junction
-from src.vehicle import Vehicle
+from network import Network
+from edge import Edge
+from lane import Lane
+from route import Route
+from junction import Junction
+from vehicle import Vehicle
 
 help_string = """SUMO-CUDA
     USAGE: python sumo-cuda.py [options] network.py.netccfg

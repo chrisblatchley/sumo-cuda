@@ -7,10 +7,9 @@
 # ##
 # Lane object for an edge
 ##
-from src import vehicle_control
 
-from src.vehicle_control import VehicleControl
-from src.vehicle import Vehicle
+from vehicle_control import VehicleControl
+from vehicle import Vehicle
 
 class Network(object):
     """Network Object to contain and run the edges, junctions, and the main simulation loop
