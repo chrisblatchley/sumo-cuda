@@ -12,6 +12,14 @@ class Vehicle(object):
     """Vehicle Object to simulate a running Vehicle in a road network.py."""
 
     ##
+    # Class Constants
+    ##
+    ACCEL_FACTOR = 5.0
+    CRUISE_ACCEL_FACTOR = 0.0
+    WITHIN_STOP_DISTANCE = 100.0
+    MIN_CAR_LENGTHS_IN_FRONT = 2
+
+    ##
     # Contructor for Vehicle
     #
     # @param route	route for vehicle to take
@@ -48,20 +56,23 @@ class Vehicle(object):
             distanceToStop = distance
         else:
             distanceToStop = self.currEdge.length - self.pos
-        approachingStop = distanceToStop < 200  # Braking distance in meters
+
+        approachingStop = distanceToStop < self.WITHIN_STOP_DISTANCE
 
         #find acceleration factor
-        if approachingStop or (pred.currSpeed < self.currSpeed and distance < self.style["length"] * 2):
-            accelFactor = -2.5
-        elif self.currSpeed < self.speed:
-            accelFactor = 2.5
+        if (approachingStop and self.currSpeed > self.ACCEL_FACTOR )or (pred and pred.currSpeed < self.currSpeed and distance < self.style["length"] * self.MIN_CAR_LENGTHS_IN_FRONT):
+            accelFactor = -1 * self.ACCEL_FACTOR
+        elif self.currSpeed < self.style["speed"]:
+            accelFactor = self.ACCEL_FACTOR
         else:
-            accelFactor = 0
+            accelFactor = self.CRUISE_ACCEL_FACTOR
 
-        proposedNewPosition = self.pos + (self.speed + accelFactor)
+        # Update speed and position
+        self.currSpeed = self.currSpeed + accelFactor
+        proposedNewPosition = self.pos + self.currSpeed
 
+        # Update next position
         self.nextPos = proposedNewPosition
-        print("Pos: ", self.pos)
 
     ##
     # executeMove
@@ -70,3 +81,4 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
+        print "Pos:", self.pos, "Speed:", self.currSpeed

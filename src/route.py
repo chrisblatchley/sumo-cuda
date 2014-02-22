@@ -29,10 +29,14 @@ class Route(object):
     # @param edge   The last edge that the vehicle resided in
     ## 
     def getNextEdge(self, edge):
-        return self.edges[ self.edges.getIndex( edge ) + 1 ] #Gets the index for the passed edge, then returns the edge object for the next edge
+        nextEdgeIndex = self.edges.getIndex( edge ) + 1
+        if nextEdgeIndex < len(self.edges):
+            return self.edges[nextEdgeIndex]
+        else:
+            None
 
     def begin(self):
         return self.edges[0]
 
     def end(self):
-        return self.edges[len(edges) - 1]
+        return self.edges[len(self.edges) - 1]

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-##
+#
 # @file: car.py
 # @author: Chris Blatchley
 # @author: Thad Bond
@@ -27,10 +27,9 @@ def main():
     print(help_string)
 
 def tests():
-    """Run a basic test"""
     network = Network()
     edge = Edge("edgeA", None, 1000, 30)
-    route = Route("routeA", [edge, edge], True)
+    route = Route("routeA", [edge], True)
     network.addEdge( edge )
     network.addRoute( route )
     edge.addlane("laneA")

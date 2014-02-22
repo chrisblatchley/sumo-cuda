@@ -62,3 +62,12 @@ class Edge(object):
     ##
     def addVehicle(self, vehicle):
         self.lanes[ len(self.lanes) - 1 ].addVehicle( vehicle )
+
+    ##
+    # removeVehicle
+    # Ensure a vehicle is removed from the lane lists
+    # @param vehicle The vehicle to remove
+    ##
+    def removeVehicle(self, vehicle):
+        for lane in self.lanes:
+            lane.removeVehicle(vehicle)

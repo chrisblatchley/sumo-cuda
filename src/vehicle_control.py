@@ -21,11 +21,10 @@ class VehicleControl(object):
     ##
     def __init__(self):
         super(VehicleControl, self).__init__()
-        self.loadedVehicles = []
-        self.loadedVehicleNo = 0
-        self.runningVehicleNo = 0
-        self.endedVehicleNo = 0
-        self.discardedVehiclesNo = 0
+        self.vehicles = []
+        self.runningVehicles = 0
+        self.endedVehicles = 0
+        self.discardedVehicles = 0
         self.collisions = 0
         self.teleports = 0
 
@@ -35,7 +34,7 @@ class VehicleControl(object):
     # @param route	The vehicle route
     # @param style	The vehicle style
     def buildVehicle(self, route, style):
-        self.loadedVehicleNo = self.loadedVehicleNo + 1
+        print "building vehicle with route", route
         newVehicle = Vehicle(route, style)
         return newVehicle
 
@@ -45,8 +44,9 @@ class VehicleControl(object):
     # @param uid	String uid for vehicle
     # @param vehicle 	Vehicle object to insert
     def addVehicle(self, vehicle):
-        if vehicle not in self.loadedVehicles:
-            self.loadedVehicles.append(vehicle)
+        if vehicle not in self.vehicles:
+            print "adding vehicle to structure"
+            self.vehicles.append(vehicle)
             edge = vehicle.route.begin()
             edge.addVehicle(vehicle)
             return True
@@ -59,8 +59,8 @@ class VehicleControl(object):
     # @param uid	Vehicle uid
     ##
     def getVehicle(self, vehicle):
-        if vehicle in self.loadedVehicles:
-            vehicle
+        if vehicle in self.vehicles:
+            return vehicle
         else:
             None
 
@@ -71,17 +71,20 @@ class VehicleControl(object):
     # @param discard	Should discard the vehicle, false is default
     ##
     def deleteVehicle(self, vehicle, discard=False):
-        self.endedVehiclesNo = self.endedVehiclesNo + 1
+        print "Deleting vehicle"
+        self.endedVehicles = self.endedVehicles + 1
         self.discardedVehicles = self.discardedVehicles + 1
-        self.loadedVehicles.pop(vehicle.uid)
+        self.vehicles.remove(vehicle)
+        vehicle.currEdge.removeVehicle(vehicle)
 
 
     ##
     # refreshTimestep
     ##
     def refreshTimestep(self):
-        for vehicle in self.loadedVehicles:
+        for vehicle in self.vehicles:
             if vehicle.currEdge is vehicle.route.end():
                 #The vehicle is on the last edge of their route
                 if vehicle.pos > vehicle.route.end().length - 10: #Are we within a buffer zone of the end of the edge?
+                    print "Removing vehicle from simulation"
                     self.deleteVehicle(vehicle)
