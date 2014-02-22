@@ -27,7 +27,7 @@ class Vehicle(object):
     # @param speed	max speed a vehicle will drive
     # @return Initialized Vehicle object
     ##
-    def __init__(self, route, style):
+    def __init__(self, route, style, depart):
         super(Vehicle, self).__init__()
         self.route = route
         self.style = style
@@ -35,6 +35,7 @@ class Vehicle(object):
         self.pos = 0
         self.nextPos = 0
         self.currEdge = self.route.begin()
+        self.depart = depart
 
     ##
     # enterLane
