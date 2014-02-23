@@ -60,9 +60,15 @@ class Vehicle(object):
 
         approachingStop = distanceToStop < self.WITHIN_STOP_DISTANCE
 
+
         #find acceleration factor
-        if (approachingStop and self.currSpeed > self.ACCEL_FACTOR )or (pred and pred.currSpeed < self.currSpeed and distance < self.style["length"] * self.MIN_CAR_LENGTHS_IN_FRONT):
-            accelFactor = -1 * self.ACCEL_FACTOR
+        if (approachingStop and self.currSpeed > self.ACCEL_FACTOR ) or (pred and pred.currSpeed <= self.currSpeed and distance <= self.style["length"] * self.MIN_CAR_LENGTHS_IN_FRONT):
+            if (pred and pred.style["speed"] < self.style["speed"]):
+                #We are faster than the car in front of us, and within their buffer area
+                accelFactor = self.CRUISE_ACCEL_FACTOR
+                self.currSpeed = pred.currSpeed
+            else:
+                accelFactor = -1 * self.ACCEL_FACTOR
         elif self.currSpeed < self.style["speed"]:
             accelFactor = self.ACCEL_FACTOR
         else:
@@ -74,6 +80,10 @@ class Vehicle(object):
 
         # Update next position
         self.nextPos = proposedNewPosition
+        if(pred):
+            print "Pos: ", self.nextPos, " Speed: ", self.currSpeed, " Pred-pos: ", pred.pos
+        else:
+            print "Pos: ", self.nextPos, " Speed: ", self.currSpeed
 
     ##
     # executeMove
@@ -82,4 +92,4 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
-        print "Pos:", self.pos, "Speed:", self.currSpeed
+        

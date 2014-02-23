@@ -94,13 +94,11 @@ class VehicleControl(object):
         for vehicle in self.vehicles:
             if vehicle.currEdge is vehicle.route.end():
                 #The vehicle is on the last edge of their route
-                if vehicle.pos > vehicle.route.end().length - 10: #Are we within a buffer zone of the end of the edge?
+                if vehicle.pos >= vehicle.route.end().length - vehicle.currSpeed: #Are we within a buffer zone of the end of the edge?
                     print "Removing vehicle from simulation"
                     self.deleteVehicle(vehicle)
 
-        print "waiting queue:", self.waiting
         for vehicle in self.waiting:        
             if vehicle.depart <= timeStep:
-                print "Vehicle:", vehicle
                 self.waiting.remove(vehicle)
                 self.addVehicle(vehicle)

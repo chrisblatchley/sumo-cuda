@@ -40,6 +40,7 @@ class Lane(object):
             else:
                 freeSpace = predVehicle.pos - vehicle.pos
             #Send the information to the vehicle, then set it as the predecessor
+            print "Vehicle: ", self.vehicles.index(vehicle)
             vehicle.planMove(predVehicle, freeSpace)
             predVehicle = vehicle
 

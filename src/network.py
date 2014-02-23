@@ -24,7 +24,7 @@ class Network(object):
     ##
     # Network Contructor
     ##
-    def __init__(self, maxTime = 100):
+    def __init__(self, maxTime = 150):
         self.edges = []
         self.junctions = []
         self.routes = []
