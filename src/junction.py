@@ -2,8 +2,8 @@
 # @file: junction.py
 # @author: Chris Blatchley
 # @author: Thad Bond
-# @date: Sun, Jan 5, 2014
-# @version: 0.1
+# @date: Sun, Feb 23, 2014
+# @version: 0.2
 # ##
 # Junction object implementation.
 ##
@@ -14,14 +14,12 @@ class Junction(object):
     ##
     # Junction Constructor
     # @param id		The string identification
-    # @param postition	The position of the junction
     # @param shape	The shape of the junction
     # @return 	Initialized Junction Object
     ##
-    def __init__(self, uid, position, shape):
+    def __init__(self, uid, shape):
         super(Junction, self).__init__()
         self.uid = uid
-        self.position = position
         self.shape = shape
         self.queue = [] #The vehicles waiting to pass through
 
@@ -29,11 +27,12 @@ class Junction(object):
     # runTimestep
     ##
     def runTimestep(self):
-        if self.shape is "throughway":
-            for vehicle in self.queue: #Since its a throughway, we might as well just send everyone through
-                newEdge = vehicle.route.getNextEdge(vehicle.currEdge) #Get the next edge for the vehicle's edge
-                if newEdge:
-                    newEdge.addVehicle(vehicle) #Add the vehicle to the new edge
+        if self.shape is "allstop":
+            if self.queue: #We have at least something in the queue
+                vehicle = self.queue[0]
+                newEdge = vehicle.route.getNextEdge(vehicle.currEdge) #Get the next edge for the vehicle
+                print "Junction ", self.uid, " is passing a vehicle to edge ", newEdge.uid
+                newEdge.addVehicle(vehicle) #Add the vehicle to the new edge
                 self.queue.remove(vehicle) #The vehicle has passed through, get rid of it
 
     ##
@@ -41,4 +40,7 @@ class Junction(object):
     # @param vehicle The vehicle to add to the queue
     ##
     def addToQueue(self, vehicle):
+        #Add it to our queue list
         self.queue.append(vehicle)
+        #Remove the vehicle from its previous edge now that its done there
+        vehicle.currEdge.removeVehicle(vehicle)

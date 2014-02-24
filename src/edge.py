@@ -18,17 +18,17 @@ class Edge(object):
     # Edge Contructor
     # @param uid 			unique string identification
     # @param numericalID	Numerical identification number
-    # @param function		Basic type of the edge
     # @param streetName		Street name of edge
     # @param length			The length of the edge
     # @param maxSpeed		The maximum speed that may be traveled on the edge
+    # @param junction       Ending junction to the edge
     ##
-    def __init__(self, uid, function, length, maxSpeed):
+    def __init__(self, uid, length, maxSpeed, junction = None):
         super(Edge, self).__init__()
         self.uid = uid
-        self.function = function
         self.length = length
         self.maxSpeed = maxSpeed
+        self.junction = junction
         self.lanes = []
         self.laneChanger = None
         self.isRotary = False
@@ -37,7 +37,7 @@ class Edge(object):
     # Add a lane to the edge
     # @param uid	The lane's unique identifier
     ##
-    def addlane(self, uid):
+    def addLane(self, uid):
         newLane = Lane(uid, self)
         self.lanes.append(newLane)
 
