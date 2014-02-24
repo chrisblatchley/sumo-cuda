@@ -28,16 +28,20 @@ def main():
 
 def tests():
     network = Network()
-    edge = Edge("edgeA", None, 1000, 30)
-    route = Route("routeA", [edge], True)
+    junction = Junction("junctionA", "allstop")
+    edge = Edge("edgeA", 1000, 30, junction)
+    edge2 = Edge("edgeB", 1000, 30)
+    route = Route("routeA", [edge, edge2], True)
+    network.addJunction( junction )
     network.addEdge( edge )
+    network.addEdge( edge2 )
     network.addRoute( route )
-    edge.addlane("laneA")
+    edge.addLane("laneA")
+    edge2.addLane("laneB")
     vehicle = network.vehicleController.buildVehicle(network.routes[0], {"length": 5, "speed": 10}, 2)
     network.vehicleController.queueVehicle(vehicle)
-    vehicle2 = network.vehicleController.buildVehicle(network.routes[0], {"length": 5, "speed": 20}, 4)
+    vehicle2 = network.vehicleController.buildVehicle(network.routes[0], {"length": 5, "speed": 10}, 4)
     network.vehicleController.queueVehicle(vehicle2)
-    print(edge.lanes)
 
     network.runSimulation()
 
