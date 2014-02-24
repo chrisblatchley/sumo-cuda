@@ -2,8 +2,8 @@
 # @file: vehicle.py
 # @author: Chris Blatchley
 # @author: Thad Bond
-# @date: Sun, Jan 5, 2014
-# @version: 0.1
+# @date: Mon, Feb 24, 2014
+# @version: 0.2
 # ##
 # Vehicle object implementation.
 ##
@@ -67,6 +67,7 @@ class Vehicle(object):
                 #We are faster than the car in front of us, and within their buffer area
                 accelFactor = self.CRUISE_ACCEL_FACTOR
                 self.currSpeed = pred.currSpeed
+                #Request a lane change if possible here
             else:
                 accelFactor = -1 * self.ACCEL_FACTOR
         elif self.currSpeed < self.style["speed"]:

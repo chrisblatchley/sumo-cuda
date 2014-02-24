@@ -2,8 +2,8 @@
 # @file: lane_changer.py
 # @author: Chris Blatchley
 # @author: Thad Bond
-# @date: Tue, Jan 28, 2014
-# @version: 0.1
+# @date: Mon, Feb 24, 2014
+# @version: 0.2
 # ##
 # LaneChanger for an edge
 ##
@@ -16,23 +16,28 @@ class LaneChanger(object):
     #
     # @return	Initialized LaneChanger object
     ##
-    def __init__(self, lanes):
+    def __init__(self):
         super(LaneChanger, self).__init__()
-        self.lanes = lanes
+        self.lanes = []
 
     ##
-    # checkNeededChanges	Checks if lanes/vehicles are in need of a lane change
+    # Add Lanes from edge
     #
+    # @param lane   Lane to add to the changer object
     ##
-    def checkNeededChanges(self):
+    def addLane(self, lane):
+        self.lanes.append(lane)
+
+    ##
+    # planMovements
+    # Plan movments operation to determine if lane changes can be made
+    ##
+    def planMovements(self):
         pass
 
     ##
-    # performChange	Performs a lane change
-    #
-    # @param fromLane	The originating lane
-    # @param toLane	The destination lane
-    # @param vehicle The vehicle to change lanes
+    # executeMovements
+    # Execute the planned lane changes
     ##
-    def performChange(self, fromLane, toLane, vehicle):
+    def executeMovements(self):
         pass

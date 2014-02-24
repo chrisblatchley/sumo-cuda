@@ -2,8 +2,8 @@
 # @file: edge.py
 # @author: Chris Blatchley
 # @author: Thad Bond
-# @date: Sun, Jan 5, 2014
-# @version: 0.1
+# @date: Mon, Feb 24, 2014
+# @version: 0.2
 # ##
 # Edge object from one junction to another.
 ##
@@ -30,8 +30,7 @@ class Edge(object):
         self.maxSpeed = maxSpeed
         self.junction = junction
         self.lanes = []
-        self.laneChanger = None
-        self.isRotary = False
+        self.laneChanger = LaneChanger()
 
     ##
     # Add a lane to the edge
@@ -40,20 +39,21 @@ class Edge(object):
     def addLane(self, uid):
         newLane = Lane(uid, self)
         self.lanes.append(newLane)
-
-    ##
-    # Once all lanes have been loaded for this edge, we can init the lane changer for it
-    ##
-    def initChanger(self):
-        self.laneChanger = LaneChanger(self.lanes)
+        self.laneChanger.addLane(newLane)
 
     ##
     # runLane
     ##
     def runLanes(self):
+        #Figure out new velocities/positions of cars
         for lane in self.lanes:
             lane.planMovements()
+        #Now that we know where cars are moving, we can plan merging
+        self.laneChanger.planMovements()
+        #Lets make all the moves now
+        for lane in self.lanes:
             lane.executeMovements()
+        self.laneChanger.executeMovements()
 
     ##
     # addVehicle

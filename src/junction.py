@@ -33,6 +33,7 @@ class Junction(object):
                 newEdge = vehicle.route.getNextEdge(vehicle.currEdge) #Get the next edge for the vehicle
                 print "Junction ", self.uid, " is passing a vehicle to edge ", newEdge.uid
                 newEdge.addVehicle(vehicle) #Add the vehicle to the new edge
+                vehicle.currSpeed = 0 #Make the vehicle start at 0 speed from stop
                 self.queue.remove(vehicle) #The vehicle has passed through, get rid of it
 
     ##
