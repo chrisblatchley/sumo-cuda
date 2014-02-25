@@ -36,23 +36,16 @@ class VehicleControl(object):
         self.teleports = 0
 
     ##
-    # buildVehicle	Builds a vehicle
+    # Add vehicle to list of running vehicles
     #
-    # @param route	The vehicle route
-    # @param style	The vehicle style
-    def buildVehicle(self, route, style, depart):
-        newVehicle = Vehicle(route, style, depart)
-        return newVehicle
-
-    ##
-    # Add vehicle to structure if non-existent
-    #
-    # @param uid	String uid for vehicle
     # @param vehicle 	Vehicle object to insert
+    # @return   boolean whether vehicle was successfully added
     def addVehicle(self, vehicle):
-        self.vehicles.append(vehicle)
         edge = vehicle.route.begin()
-        edge.addVehicle(vehicle)
+        if edge.addVehicle(vehicle):
+            self.vehicles.append(vehicle)
+            return True
+        return False
 
     ##
     # queueVehicle
@@ -63,51 +56,40 @@ class VehicleControl(object):
         self.waiting.append(vehicle)
 
     ##
-    # Get a vehicle from the data structure
-    #
-    # @param uid	Vehicle uid
-    ##
-    def getVehicle(self, vehicle):
-        if vehicle in self.vehicles:
-            return vehicle
-        else:
-            None
-
-    ##
     # Delete a vehicle from the data structure
     #
     # @param vehicle    The vehicle to discard
     # @param discard    Should discard the vehicle, false is default
     ##
     def deleteVehicle(self, vehicle, discard=False):
-        print("Deleting vehicle")
         self.endedVehicles = self.endedVehicles + 1
         self.discardedVehicles = self.discardedVehicles + 1
         self.vehicles.remove(vehicle)
         vehicle.currEdge.removeVehicle(vehicle)
+        print("ALERT: Deleted vehicle", str(id(vehicle))[-4:])
 
 
     ##
     # refreshTimestep
     ##
     def refreshTimestep(self, timeStep):
+
+        # Add ready vehicles from waiting list
+        toRemove = []
+        for vehicle in self.waiting:
+            print "Vehicle in queue:", str(id(vehicle))[-4:], "departure:", vehicle.depart
+            if vehicle.depart <= timeStep:
+                if self.addVehicle(vehicle):
+                    toRemove.append(vehicle)
+                    print("\tALERT: Adding vehicle", str(id(vehicle))[-4:])
+            print
+
+        for vehicle in toRemove:
+            self.waiting.remove(vehicle)
+
+        # Remove vehicles from running list
         for vehicle in self.vehicles:
             if vehicle.currEdge is vehicle.route.end():
                 #The vehicle is on the last edge of their route
                 if vehicle.pos >= vehicle.route.end().length - vehicle.currSpeed: #Are we within a buffer zone of the end of the edge?
-                    print "Vehicle: ", self.vehicles.index(vehicle), " has finished its route"
                     self.deleteVehicle(vehicle)
-            else:
-                #We are within the end of a mid edge?
-                if vehicle.pos >= vehicle.currEdge.length - vehicle.currSpeed: 
-                    print "Vehicle: ", self.vehicles.index(vehicle), " is entering junction ", vehicle.currEdge.junction.uid
-                    #Add the vehicle to the edge's end junction
-                    vehicle.currEdge.junction.addToQueue(vehicle)
-
-
-        #Check our spawn queue
-        for vehicle in self.waiting:
-            #Check if its time to send the vehicle
-            if vehicle.depart <= timeStep:
-                self.addVehicle(vehicle)
-                self.waiting.remove(vehicle)

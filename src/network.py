@@ -54,8 +54,13 @@ class Network(object):
     ##
     def runSimulation(self):
 
-        while self.timeStep < self.maxTime:            
-            print("Timestep"  + str(self.timeStep))
+        while self.timeStep < self.maxTime:    
+            print        
+            print "== Timestep:", self.timeStep, "=="
+
+            # Cleanup vehicles and start new ones coming in
+            self.vehicleController.refreshTimestep(self.timeStep)
+            
             # Simulate movement through each edge
             for edge in self.edges:
                 edge.runLanes()
@@ -63,9 +68,6 @@ class Network(object):
             # Simulate movement through each junction
             for junction in self.junctions:
                 junction.runTimestep()
-
-            # Cleanup vehicles and start new ones coming in
-            self.vehicleController.refreshTimestep(self.timeStep)
 
             # Next Time Step!
             self.timeStep = self.timeStep + 1

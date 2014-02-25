@@ -58,10 +58,12 @@ class Edge(object):
     ##
     # addVehicle
     # Add a vehicle that is coming from a junction
-    # @param vehicle The vehicle to add
+    # @param vehicle    The vehicle to add
+    # @param lane       to add vehicle to
+    # @return boolean if vehicle can be added to lane
     ##
-    def addVehicle(self, vehicle):
-        self.lanes[ len(self.lanes) - 1 ].addVehicle( vehicle )
+    def addVehicle(self, vehicle, lane = 0):
+        return self.lanes[lane].addVehicle( vehicle )
 
     ##
     # removeVehicle

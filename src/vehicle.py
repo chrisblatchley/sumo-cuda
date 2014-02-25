@@ -22,9 +22,9 @@ class Vehicle(object):
     ##
     # Contructor for Vehicle
     #
-    # @param route	route for vehicle to take
-    # @param style	the vehicle's type
-    # @param speed	max speed a vehicle will drive
+    # @param route  route for vehicle to take
+    # @param style  the vehicle's type
+    # @param speed  max speed a vehicle will drive
     # @return Initialized Vehicle object
     ##
     def __init__(self, route, style, depart):
@@ -49,8 +49,8 @@ class Vehicle(object):
     # planMove
     # @brief public method called on each running vehicle
     #
-    # @param pred	the vehicle that is infront
-    # @param distance	the distance a vehicle is ahead
+    # @param pred   the vehicle that is infront
+    # @param distance   the distance a vehicle is ahead 
     ##
     def planMove(self, pred, distance):
         if not pred:
@@ -81,10 +81,6 @@ class Vehicle(object):
 
         # Update next position
         self.nextPos = proposedNewPosition
-        if(pred):
-            print "Pos: ", self.nextPos, " Speed: ", self.currSpeed, " Pred-pos: ", pred.pos
-        else:
-            print "Pos: ", self.nextPos, " Speed: ", self.currSpeed
 
     ##
     # executeMove
@@ -93,4 +89,5 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
-        
+        print "Pos: ", self.nextPos, " Speed: ", self.currSpeed
+        print
