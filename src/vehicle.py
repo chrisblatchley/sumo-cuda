@@ -89,5 +89,5 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
-        print "Pos: ", self.nextPos, " Speed: ", self.currSpeed
-        print
+        print("Pos: ", self.nextPos, " Speed: ", self.currSpeed)
+        print()

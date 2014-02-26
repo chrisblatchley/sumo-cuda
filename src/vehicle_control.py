@@ -77,12 +77,12 @@ class VehicleControl(object):
         # Add ready vehicles from waiting list
         toRemove = []
         for vehicle in self.waiting:
-            print "Vehicle in queue:", str(id(vehicle))[-4:], "departure:", vehicle.depart
+            print("Vehicle in queue:", str(id(vehicle))[-4:], "departure:", vehicle.depart)
             if vehicle.depart <= timeStep:
                 if self.addVehicle(vehicle):
                     toRemove.append(vehicle)
                     print("\tALERT: Adding vehicle", str(id(vehicle))[-4:])
-            print
+            print()
 
         for vehicle in toRemove:
             self.waiting.remove(vehicle)

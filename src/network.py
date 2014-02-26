@@ -55,8 +55,8 @@ class Network(object):
     def runSimulation(self):
 
         while self.timeStep < self.maxTime:    
-            print        
-            print "== Timestep:", self.timeStep, "=="
+            print("") 
+            print("== Timestep:", self.timeStep, "==")
 
             # Cleanup vehicles and start new ones coming in
             self.vehicleController.refreshTimestep(self.timeStep)
