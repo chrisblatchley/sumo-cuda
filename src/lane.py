@@ -8,6 +8,8 @@
 # Lane object for an edge
 ##
 
+from debug import debug
+
 class Lane(object):
     """Lane is responsible for determining movement of vehicles on an edge"""
 
@@ -52,7 +54,7 @@ class Lane(object):
         for vehicle in self.vehicles:
             #Executes the movement function within the vehicle
             #Also passes the vehicle position object so that the vehicle updates it appropriately
-            print("Vehicle: ", str(id(vehicle))[-4:])
+            debug("Vehicle: ", str(id(vehicle))[-4:])
             vehicle.executeMove()
 
     ##

@@ -8,6 +8,7 @@
 # Vehicle controller object implementation.
 ##
 
+from debug import debug
 from vehicle import Vehicle
 from edge import Edge
 
@@ -66,7 +67,7 @@ class VehicleControl(object):
         self.discardedVehicles = self.discardedVehicles + 1
         self.vehicles.remove(vehicle)
         vehicle.currEdge.removeVehicle(vehicle)
-        print("ALERT: Deleted vehicle", str(id(vehicle))[-4:])
+        debug("ALERT: Deleted vehicle", str(id(vehicle))[-4:])
 
 
     ##
@@ -77,12 +78,12 @@ class VehicleControl(object):
         # Add ready vehicles from waiting list
         toRemove = []
         for vehicle in self.waiting:
-            print("Vehicle in queue:", str(id(vehicle))[-4:], "departure:", vehicle.depart)
+            debug("Vehicle in queue:", str(id(vehicle))[-4:], "departure:", vehicle.depart)
             if vehicle.depart <= timeStep:
                 if self.addVehicle(vehicle):
                     toRemove.append(vehicle)
-                    print("\tALERT: Adding vehicle", str(id(vehicle))[-4:])
-            print()
+                    debug("\tALERT: Adding vehicle", str(id(vehicle))[-4:])
+            debug()
 
         for vehicle in toRemove:
             self.waiting.remove(vehicle)

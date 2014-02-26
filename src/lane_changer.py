@@ -8,6 +8,8 @@
 # LaneChanger for an edge
 ##
 
+from debug import debug
+
 class LaneChanger(object):
     """LaneChanger is responsible for coordinating between lanes and vehicles for lane changes"""
 

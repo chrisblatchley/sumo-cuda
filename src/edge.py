@@ -8,6 +8,7 @@
 # Edge object from one junction to another.
 ##
 
+from debug import debug
 from lane import Lane
 from lane_changer import LaneChanger
 

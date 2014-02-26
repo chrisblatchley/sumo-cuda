@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 # @file: car.py
 # @author: Chris Blatchley
@@ -9,6 +9,7 @@
 # Car object implementation.
 ##
 
+from debug import debug
 from network import Network
 from edge import Edge
 from lane import Lane
@@ -22,9 +23,8 @@ help_string = """SUMO-CUDA
 Authors: Thaddeus Bond, Chris Blatchley
 """
 
-
 def main():
-    print(help_string)
+    debug(help_string)
 
 def singleRoadSingleVehicleTest():
     network = Network()

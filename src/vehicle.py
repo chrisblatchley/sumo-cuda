@@ -8,6 +8,8 @@
 # Vehicle object implementation.
 ##
 
+from debug import debug
+
 class Vehicle(object):
     """Vehicle Object to simulate a running Vehicle in a road network.py."""
 
@@ -89,5 +91,5 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
-        print("Pos: ", self.nextPos, " Speed: ", self.currSpeed)
-        print()
+        debug("Pos: ", self.nextPos, " Speed: ", self.currSpeed)
+        debug()

@@ -8,6 +8,7 @@
 # Lane object for an edge
 ##
 
+from debug import debug
 from vehicle_control import VehicleControl
 from vehicle import Vehicle
 
@@ -55,8 +56,8 @@ class Network(object):
     def runSimulation(self):
 
         while self.timeStep < self.maxTime:    
-            print("") 
-            print("== Timestep:", self.timeStep, "==")
+            debug("") 
+            debug("== Timestep:", self.timeStep, "==")
 
             # Cleanup vehicles and start new ones coming in
             self.vehicleController.refreshTimestep(self.timeStep)

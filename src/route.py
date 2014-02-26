@@ -8,6 +8,8 @@
 # Route Object describing a path of edges
 ##
 
+from debug import debug
+
 class Route(object):
     """A Route on which a vehicle travels"""
 
