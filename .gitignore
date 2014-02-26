@@ -22,7 +22,6 @@
 
 #sublime files
 *.sublime-workspace
-*.sublime-project
 
 # pycharm stuff
 .idea/*

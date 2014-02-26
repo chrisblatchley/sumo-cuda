@@ -10,6 +10,8 @@
 ##
 
 from debug import debug
+import sys
+
 from network import Network
 from edge import Edge
 from lane import Lane
@@ -24,7 +26,7 @@ Authors: Thaddeus Bond, Chris Blatchley
 """
 
 def main():
-    debug(help_string)
+    print(help_string)
 
 def singleRoadSingleVehicleTest():
     network = Network()
@@ -79,4 +81,7 @@ def tests():
 
 
 if __name__ == '__main__':
-    tests()
+    if "tests" in sys.argv:
+        tests()
+    else:
+        main()
