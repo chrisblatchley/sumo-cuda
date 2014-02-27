@@ -91,5 +91,7 @@ class Vehicle(object):
     def executeMove(self):
         self.pos = self.nextPos
         self.nextPos = self.pos
+        assert self.pos >= 0, "Vehicle position is negative!"
+        assert self.pos <= self.currEdge.length, "Vehicle position is beyond edge!"
         debug("Pos: ", self.nextPos, " Speed: ", self.currSpeed)
         debug()
