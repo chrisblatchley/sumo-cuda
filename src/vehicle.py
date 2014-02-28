@@ -55,29 +55,32 @@ class Vehicle(object):
     # @param distance   the distance a vehicle is ahead 
     ##
     def planMove(self, pred, distance):
-        if not pred:
-            distanceToStop = distance
-        else:
-            distanceToStop = self.currEdge.length - self.pos
+        # Get vehicle position at timestep
+        debug("Vehicle: ", str(id(self))[-4:])
+        debug("\tPos: ", self.nextPos, " Speed: ", self.currSpeed)
+        debug()
 
-        approachingStop = distanceToStop < self.WITHIN_STOP_DISTANCE
+        # Find distance to stop
+        distanceToStop      = self.currEdge.length - self.pos
+        timeToStop          = self.currSpeed / self.ACCEL_FACTOR
+        stoppingDistance    = timeToStop * self.currSpeed / 2
 
+        # Calculate predicates
+        approachingStop     = distanceToStop < stoppingDistance
+        approchingPred      = pred and pred.currSpeed <= self.currSpeed
+        predIsSlower        = pred and pred.style["speed"] < self.style["speed"]
+        withinCarBuffer     = distance <= self.style["length"] * self.MIN_CAR_LENGTHS_IN_FRONT
+        canStopNow          = self.currSpeed <= self.ACCEL_FACTOR
+        wantsToAccel        = self.currSpeed < self.style["speed"]
 
-        #find acceleration factor
-        if (approachingStop and self.currSpeed > self.ACCEL_FACTOR ) or (pred and pred.currSpeed <= self.currSpeed and distance <= self.style["length"] * self.MIN_CAR_LENGTHS_IN_FRONT):
-            if (pred and pred.style["speed"] < self.style["speed"]):
-                #We are faster than the car in front of us, and within their buffer area
-                accelFactor = self.CRUISE_ACCEL_FACTOR
-                self.currSpeed = pred.currSpeed
-                #Request a lane change if possible here
-            else:
-                accelFactor = -1 * self.ACCEL_FACTOR
-        elif self.currSpeed < self.style["speed"]:
+        # find acceleration factor
+        accelFactor = self.CRUISE_ACCEL_FACTOR
+        if wantsToAccel and not approachingStop:
             accelFactor = self.ACCEL_FACTOR
-        else:
-            accelFactor = self.CRUISE_ACCEL_FACTOR
+        elif approachingStop:
+            accelFactor = self.ACCEL_FACTOR * -1
 
-        # Update speed and position
+        # Update speed and set next position
         self.currSpeed = self.currSpeed + accelFactor
         proposedNewPosition = self.pos + self.currSpeed
 
@@ -93,5 +96,3 @@ class Vehicle(object):
         self.nextPos = self.pos
         assert self.pos >= 0, "Vehicle position is negative!"
         assert self.pos <= self.currEdge.length, "Vehicle position is beyond edge!"
-        debug("Pos: ", self.nextPos, " Speed: ", self.currSpeed)
-        debug()

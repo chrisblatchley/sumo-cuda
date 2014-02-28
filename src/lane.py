@@ -54,7 +54,6 @@ class Lane(object):
         for vehicle in self.vehicles:
             #Executes the movement function within the vehicle
             #Also passes the vehicle position object so that the vehicle updates it appropriately
-            debug("Vehicle: ", str(id(vehicle))[-4:])
             vehicle.executeMove()
 
     ##

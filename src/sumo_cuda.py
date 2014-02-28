@@ -74,9 +74,9 @@ def twoRoadTwoVehicleTest():
     network.runSimulation()
 
 def tests():
-    # singleRoadSingleVehicleTest()
+    singleRoadSingleVehicleTest()
     # singleRoadTwoVehicleTest()
-    twoRoadTwoVehicleTest()
+    # twoRoadTwoVehicleTest()
 
 
 
