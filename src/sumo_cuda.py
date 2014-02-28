@@ -35,7 +35,7 @@ def singleRoadSingleVehicleTest():
     network.addEdge( edge )
     network.addRoute( route )
     edge.addLane("laneA")
-    vehicle = Vehicle(route, {"length": 5, "speed": 10}, 10)
+    vehicle = Vehicle(route, {"length": 5, "speed": 30}, 10)
     network.vehicleController.queueVehicle(vehicle)
 
     network.runSimulation()

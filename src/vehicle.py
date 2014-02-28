@@ -55,15 +55,11 @@ class Vehicle(object):
     # @param distance   the distance a vehicle is ahead 
     ##
     def planMove(self, pred, distance):
-        # Get vehicle position at timestep
-        debug("Vehicle: ", str(id(self))[-4:])
-        debug("\tPos: ", self.nextPos, " Speed: ", self.currSpeed)
-        debug()
 
         # Find distance to stop
         distanceToStop      = self.currEdge.length - self.pos
         timeToStop          = self.currSpeed / self.ACCEL_FACTOR
-        stoppingDistance    = timeToStop * self.currSpeed / 2
+        stoppingDistance    = timeToStop * (timeToStop + 1) * self.currSpeed / 2
 
         # Calculate predicates
         approachingStop     = distanceToStop < stoppingDistance
@@ -74,11 +70,15 @@ class Vehicle(object):
         wantsToAccel        = self.currSpeed < self.style["speed"]
 
         # find acceleration factor
-        accelFactor = self.CRUISE_ACCEL_FACTOR
-        if wantsToAccel and not approachingStop:
+        if approachingStop and not canStopNow or (approchingPred and approchingPred):
+            if predIsSlower:
+                accelFactor = pred.currSpeed - self.currSpeed
+            else:
+                accelFactor = -1 * self.ACCEL_FACTOR
+        elif wantsToAccel and not approachingStop:
             accelFactor = self.ACCEL_FACTOR
-        elif approachingStop:
-            accelFactor = self.ACCEL_FACTOR * -1
+        else:
+            accelFactor = self.CRUISE_ACCEL_FACTOR
 
         # Update speed and set next position
         self.currSpeed = self.currSpeed + accelFactor
@@ -86,6 +86,11 @@ class Vehicle(object):
 
         # Update next position
         self.nextPos = proposedNewPosition
+
+        # Get vehicle position at timestep
+        debug("Vehicle: ", str(id(self))[-4:])
+        debug("\tPos: ", self.pos, " Speed: ", self.currSpeed)
+        debug()
 
     ##
     # executeMove

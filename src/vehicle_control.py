@@ -92,5 +92,5 @@ class VehicleControl(object):
         for vehicle in self.vehicles:
             if vehicle.currEdge is vehicle.route.end():
                 #The vehicle is on the last edge of their route
-                if vehicle.pos >= vehicle.route.end().length - vehicle.currSpeed: #Are we within a buffer zone of the end of the edge?
+                if vehicle.pos >= vehicle.route.end().length: #Are we on or past the end of the edge?
                     self.deleteVehicle(vehicle)
