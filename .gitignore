@@ -16,3 +16,16 @@
 *.exe
 *.out
 *.app
+
+#python compiled files
+*.py[cod]
+
+#sublime files
+*.sublime-workspace
+
+# pycharm stuff
+.idea/*
+
+# floobits stuff
+.floo
+.flooignore
