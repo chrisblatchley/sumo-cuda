@@ -1,0 +1,37 @@
+{
+	 "folders":
+    [
+        {
+            "path": "src",
+            "name": "Source"
+        },
+        {
+            "path": "doc",
+            "name": "Documentation",
+        },
+        {
+            "path": ".",
+            "name": "Project Files",
+            "folder_exclude_patterns": ["*"],
+            "file_exclude_patterns": [".floo", ".flooignore"]
+        }
+    ],
+    "settings":
+    {
+    },
+    "build_systems":
+    [
+        {
+            "name": "SUMO-CUDA Tests",
+            "cmd": ["python3", "-u", "$project_path/src/sumo_cuda.py", "tests"],
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "selector": "source.python"
+        },
+        {
+            "name": "SUMO-CUDA Main",
+            "cmd": ["python3", "-u", "$project_path/src/sumo_cuda.py"],
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "selector": "source.python"
+        }
+    ]
+}
