@@ -29,3 +29,12 @@
 # floobits stuff
 .floo
 .flooignore
+
+#VisualStudio IDE Stuff
+src/sumo-cuda.vcxproj.filters
+src/sumo-cuda.vcxproj
+src/sumo-cuda.v11.suo
+src/sumo-cuda.sln
+src/sumo-cuda.sdf
+src/sumo-cuda.opensdf
+src/Debug/*
