@@ -5,7 +5,7 @@
  *
  * Edge implementation
  */
-
+#pragma once
 class Edge
 {
 public:

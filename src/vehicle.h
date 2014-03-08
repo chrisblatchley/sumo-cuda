@@ -15,7 +15,7 @@ public:
      */
     const float ACCEL_FACTOR = 5.0;
     const float CRUISE_ACCEL = 0.0;
-    cont int MIN_CAR_LENGTHS_IN_FRONT = 2;
+    const int MIN_CAR_LENGTHS_IN_FRONT = 2;
 
     /**
      * Struct Style
