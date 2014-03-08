@@ -10,18 +10,28 @@ class Vehicle
 {
 public:
 
+    /**
+     * Class Constants
+     */
     const float ACCEL_FACTOR = 5.0;
     const float CRUISE_ACCEL = 0.0;
     cont int MIN_CAR_LENGTHS_IN_FRONT = 2;
 
+    /**
+     * Struct Style
+     * length : float   represents length of car in meters
+     * speed  : float   max speed a car will drive in meters per second
+     */
     struct Style
     {
         float length;
         float speed;
     };
 
+    /**
+     * Class Constructor and Destructor
+     */
     Vehicle(Route *r, Vehicle:Style style, int depart) : _route(r), _style(style), _depart(depart);
-    
     ~Vehicle();
 
     /**
@@ -43,79 +53,29 @@ public:
     void executeMove();
 
     /**
-     * Accessor for Route
-     * @return This vehicle's route
+     * Class Properties
      */
-    Route * getRoute();
+    
+    // route : Pointer to a route object which the vehicle will take
+    Route * route;
 
-    /**
-     * Accessor for Style
-     * @return This vehicle's style
-     */
-    Vehicle::Style * getStyle();
+    // style : A style containing the attributes of how the vehicle will drive
+    Vehicle::Style style;
 
-    /**
-     * Accessor for Current Speed
-     * @return This vehicle's current speed
-     */
-    float getSpeed();
+    // currSpeed : A floating point current speed
+    float currSpeed;
 
-    /**
-     * Accessor for current position
-     * @return This vehicle's current position
-     */
-    float getPosition();
+    // pos : A floating point position on the vehicle's current edge
+    float pos;
 
-    /**
-     * Accessor for current edge
-     * @return This vehicle's current edge
-     */
-    float getCurrentEdge();
+    // nextPos : a floating point position of where the vehicle plans to be at the
+    //           beginning of the next time step
+    float nextPos;
 
-    /**
-     * Accessor for departure time
-     * @return This vehicle's departure time
-     */
-    int getDepartureTime();
+    // currEdge : A pointer to the current edge object the vehicle is on
+    Edge * currEdge;
 
-    /**
-     * Setter for Route
-     */
-    void setRoute(Route * route);
-
-    /**
-     * Setter for Style
-     */
-    void setStyle(Vehicle::Style *style);
-
-    /**
-     * Setter for Current Speed
-     */
-    void setSpeed(float speed);
-
-    /**
-     * Setter for current position
-     */
-    void setPosition(float pos);
-
-    /**
-     * Setter for current edge
-     */
-    void setCurrentEdge(Edge *edge);
-
-    /**
-     * Setter for departure time
-     */
-    void setDepartureTime(int depart);
-
-private:
-
-    Route * _route;
-    Vehicle::Style _style;
-    float _currSpeed;
-    float _pos;
-    float _nextPos;
-    Edge * _currEdge;
-    int _depart;
+    // depart : A timestep for when the vehicle is supposed to depart.
+    int depart;
 
 };

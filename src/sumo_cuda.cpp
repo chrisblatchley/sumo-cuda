@@ -6,9 +6,7 @@
  * Main entry point for sumo-cuda
  */
 
-#include <string>
-#include <fstream>
-#include <iostream>
+#include <cstdio>
 
 void printHelpString()
 {
@@ -22,7 +20,7 @@ void test()
 {
 }
 
-int int main(int argc, char const *argv[])
+int main(int argc, char const *argv[])
 {
     if (argc > 1)
     {
