@@ -6,8 +6,8 @@
  * Edge implementation
  */
 #pragma once
-#include "junction.h"
-#include "vehicle.h"
+#include "junction.cuh"
+#include "vehicle.cuh"
 using namespace std;
 
 class Edge

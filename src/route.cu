@@ -1,4 +1,4 @@
-#include "route.h"
+#include "route.cuh"
 
 /**
 Constructor for Route object

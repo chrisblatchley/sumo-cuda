@@ -5,9 +5,9 @@
  *
  * Network header file
  */
-#include "edge.h"
-#include "junction.h"
-#include "route.h"
+#include "edge.cuh"
+#include "junction.cuh"
+#include "route.cuh"
 using namespace std;
 
 class Network

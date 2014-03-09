@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <queue>
-#include "vehicle.h"
+#include <thrust\host_vector.h>
+#include "vehicle.cuh"
 class Junction
 {
 	public:
@@ -33,14 +34,13 @@ class Junction
 		*/
 		~Junction( void );
 
-	private:
 		//The shape of the junction
-		Shape _shape;
+		Shape shape;
 
 		//Identifier of the junction
-		string _uid;
+		string uid;
 
 		//The waiting queue for the junction
-		queue< Vehicle * > _waitQueue;
+		thrust::host_vector< Vehicle * > waitQueue;
 };
 

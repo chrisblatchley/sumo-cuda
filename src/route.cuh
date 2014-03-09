@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <thrust\host_vector.h>
-#include "edge.h"
+#include "edge.cuh"
 using namespace std;
 
 class Route

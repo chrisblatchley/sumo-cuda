@@ -1,4 +1,4 @@
- #include "network.h"
+ #include "network.cuh"
 /**
  * @file: network.cpp
  * @author: Chris Blatchley

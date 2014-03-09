@@ -1,4 +1,4 @@
-#include "lane.h"
+#include "lane.cuh"
 
 /**
 Constructor for Lane object

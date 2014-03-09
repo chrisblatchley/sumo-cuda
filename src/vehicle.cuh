@@ -5,8 +5,8 @@
  *
  * Vehicle headers
  */
-#include "route.h"
-#include "lane.h"
+#include "route.cuh"
+#include "lane.cuh"
 using namespace std;
 
 class Vehicle
