@@ -5,6 +5,10 @@
  *
  * Network header file
  */
+#include "edge.h"
+#include "junction.h"
+#include "route.h"
+using namespace std;
 
 class Network
 {

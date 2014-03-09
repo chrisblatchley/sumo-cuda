@@ -6,6 +6,10 @@
  * Edge implementation
  */
 #pragma once
+#include "junction.h"
+#include "vehicle.h"
+using namespace std;
+
 class Edge
 {
 public:

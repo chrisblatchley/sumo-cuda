@@ -5,77 +5,80 @@
  *
  * Vehicle headers
  */
+#include "route.h"
+#include "lane.h"
+using namespace std;
 
 class Vehicle
 {
-public:
+	public:
 
-    /**
-     * Class Constants
-     */
-    const float ACCEL_FACTOR = 5.0;
-    const float CRUISE_ACCEL = 0.0;
-    const int MIN_CAR_LENGTHS_IN_FRONT = 2;
+		/**
+		 * Class Constants
+		 */
+		const float Vehicle::ACCEL_FACTOR = 5.0;
+		const float Vehicle::CRUISE_ACCEL = 0.0;
+		const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT = 2;
 
-    /**
-     * Struct Style
-     * length : float   represents length of car in meters
-     * speed  : float   max speed a car will drive in meters per second
-     */
-    struct Style
-    {
-        float length;
-        float speed;
-    };
+		/**
+		 * Struct Style
+		 * length : float   represents length of car in meters
+		 * speed  : float   max speed a car will drive in meters per second
+		 */
+		struct Style
+		{
+			float length;
+			float speed;
+		};
 
-    /**
-     * Class Constructor and Destructor
-     */
-    Vehicle(Route *r, Vehicle:Style style, int depart) : _route(r), _style(style), _depart(depart);
-    ~Vehicle();
+		/**
+		 * Class Constructor and Destructor
+		 */
+		Vehicle(Route *r, Vehicle::Style style, int depart);
 
-    /**
-     * Logic to occur when the vehicle enters a new lane
-     * @param lane The lane being entered
-     */
-    void enterLane(Lane *lane);
+		~Vehicle();
 
-    /**
-     * Called on each vehicle to plan the next move
-     * @param pred     The vehicle infront of this one
-     * @param distance The distance between this vehicle and it's predecessor
-     */
-    void planMove(Vehicle* pred, float distance);
+		/**
+		 * Logic to occur when the vehicle enters a new lane
+		 * @param lane The lane being entered
+		 */
+		void enterLane(Lane *lane);
 
-    /**
-     * Carry out the movement planned in planMove
-     */
-    void executeMove();
+		/**
+		 * Called on each vehicle to plan the next move
+		 * @param pred     The vehicle infront of this one
+		 * @param distance The distance between this vehicle and it's predecessor
+		 */
+		void planMove(Vehicle* pred, float distance);
 
-    /**
-     * Class Properties
-     */
+		/**
+		 * Carry out the movement planned in planMove
+		 */
+		void executeMove();
+
+		/**
+		 * Class Properties
+		 */
     
-    // route : Pointer to a route object which the vehicle will take
-    Route * route;
+		// route : Pointer to a route object which the vehicle will take
+		Route * route;
 
-    // style : A style containing the attributes of how the vehicle will drive
-    Vehicle::Style style;
+		// style : A style containing the attributes of how the vehicle will drive
+		Vehicle::Style style;
 
-    // currSpeed : A floating point current speed
-    float currSpeed;
+		// currSpeed : A floating point current speed
+		float currSpeed;
 
-    // pos : A floating point position on the vehicle's current edge
-    float pos;
+		// pos : A floating point position on the vehicle's current edge
+		float pos;
 
-    // nextPos : a floating point position of where the vehicle plans to be at the
-    //           beginning of the next time step
-    float nextPos;
+		// nextPos : a floating point position of where the vehicle plans to be at the
+		//           beginning of the next time step
+		float nextPos;
 
-    // currEdge : A pointer to the current edge object the vehicle is on
-    Edge * currEdge;
+		// currEdge : A pointer to the current edge object the vehicle is on
+		Edge * currEdge;
 
-    // depart : A timestep for when the vehicle is supposed to depart.
-    int depart;
-
+		// depart : A timestep for when the vehicle is supposed to depart.
+		int depart;
 };

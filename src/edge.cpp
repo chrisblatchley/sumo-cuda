@@ -6,6 +6,8 @@
  * Edge implementation
  */
 
+#include "edge.h"
+
 // *
 //  * Class constructor and destructor
  

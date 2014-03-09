@@ -8,14 +8,21 @@
 
 #include "vehicle.h"
 
+Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
+{
+	Vehicle::route = route;
+	Vehicle::style = style;
+	Vehicle::depart = depart;
+}
+
 /**
  * Logic to occur when the vehicle enters a new lane
  * @param lane The lane being entered
  */
-void Vehicle::enterLane(Lane *lane);
+void Vehicle::enterLane(Lane *lane)
 {
-    _pos = 0;
-    _currEdge = lane->edge;
+    pos = 0;
+    currEdge = lane->edge;
 }
 
 /**
