@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <thrust/host_vector.h>
-#include "edge.cuh"
-#include "vehicle.cuh"
+#include "edge.h"
+#include "vehicle.h"
 using namespace std;
 
 class Lane

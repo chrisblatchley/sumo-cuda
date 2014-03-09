@@ -1,5 +1,5 @@
 /**
- * @file: vehicle_control.h
+ * @file: vehicle_control.cuh
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
@@ -9,6 +9,7 @@
 #pragma once
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
+#include "vehicle.cuh"
 
 class VehicleControl
 {
@@ -36,9 +37,8 @@ public:
     /**
      * deleteVehicle
      * @param vehicle   The vehicle to discard
-     * @param discard   Should discard the vehicle, default:false
      */
-    void deleteVehicle(Vehicle *vehicle, bool discard = false);
+    void deleteVehicle(Vehicle *vehicle);
 
     /**
      * refreshTimestep
@@ -52,7 +52,5 @@ public:
     thrust::host_vector<Vehicle *> waiting;
 
     int endedVehicles;
-
-    int discardedVehicles;
 
 };

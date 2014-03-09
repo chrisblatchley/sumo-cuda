@@ -1,4 +1,4 @@
-#include "lane_changer.cuh"
+#include "lane_changer.h"
 
 
 LaneChanger::LaneChanger(void)

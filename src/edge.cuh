@@ -8,17 +8,19 @@
 #pragma once
 #include "junction.cuh"
 #include "vehicle.cuh"
-using namespace std;
 
 class Edge
 {
 public:
 
     /**
-     * Class Constructor and Destructor
+     * Class Constructor
+     * @param length    Length of edge in meters
+     * @param maxSpeed  Max speed on edge in meters/sec
+     * @param junction  Terminal junction
+     * @param laneChanger   Pointer to Lane Changer object
      */
-    Edge(float length, float maxSpeed, Junction *junction) : length(length), maxSpeed(maxSpeed), junction(junction);
-    ~Edge();
+    Edge(float length, float maxSpeed, Junction *junction, LaneChanger* laneChanger);
 
     /**
      * runLanes
@@ -33,6 +35,17 @@ public:
      * @return          Boolean value if vehicle can be added
      */
     bool addVehicle(Vehicle * vehicle, int lane = 0);
+
+    /**
+     * removeVehicle
+     * @param vehicle   Vehicle to be removed
+     */
+    void removeVehicle(Vehicle * vehicle);
+
+    /**
+     * addLane
+     */
+    void addLane();
     
     // length : Floating point value of length in meters
     float length;
@@ -43,10 +56,8 @@ public:
     // junction : Pointer to junction at terminal end of edge
     Junction * junction;
 
-    // lanes : Pointer to array of lanes
-    Lane * lanes;
-    // laneLen : Integer length of lanes array
-    int laneLen;
+    // lanes : Thrust vector of lanes
+    thrust::host_vector<Lane *>lanes;
 
     // laneChanger : Pointer to Lane Changer Object
     LaneChanger * laneChanger;

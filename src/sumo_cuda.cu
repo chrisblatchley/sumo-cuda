@@ -7,6 +7,7 @@
  */
 
 #include <cstdio>
+#include "network.cuh"
 
 void printHelpString()
 {

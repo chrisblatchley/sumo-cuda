@@ -8,17 +8,19 @@
 
 #include "edge.cuh"
 
-// *
-//  * Class constructor and destructor
- 
-// Edge::Edge() {
-
-// }
-
-// Edge::~Edge()
-// {
-
-// }
+/**
+ * Class Constructor
+ * @param length    Length of edge in meters
+ * @param maxSpeed  Max speed on edge in meters/sec
+ * @param laneChanger   Pointer to Lane Changer object
+ * @param junction  Terminal junction
+ */
+Edge::Edge(float length, float maxSpeed, Junction *junction, LaneChanger * laneChanger); {
+    this.length = length;
+    this.maxSpeed = maxSpeed;
+    this.junction = junction;
+    this.laneChanger = laneChanger;
+}
 
 /**
  * runLanes
@@ -48,4 +50,24 @@ void Edge::runLanes()
 bool Edge::addVehicle(Vehicle * vehicle, int lane = 0)
 {
     return false;
+}
+
+/**
+ * removeVehicle
+ * @param vehicle   Vehicle to be removed
+ */
+void Edge::removeVehicle(Vehicle * vehicle)
+{
+    for (thrust::host_vector<Lane *>::iterator it = lanes.begin(); it != lanes.end(); ++it)
+    {
+        (*it)->removeVehicle(vehicle);
+    }
+}
+
+/**
+ * addLane
+ */
+void Edge::addLane()
+{
+    lanes.push_back( new Lane( &this ) );
 }

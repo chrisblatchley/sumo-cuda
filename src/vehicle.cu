@@ -6,7 +6,9 @@
  * Vehicle implementation
  */
 
+#pragma once
 #include "vehicle.cuh"
+#include "route.cuh"
 
 Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 {

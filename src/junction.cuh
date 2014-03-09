@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <queue>
-#include <thrust\host_vector.h>
-#include "vehicle.cuh"
+#include <thrust/host_vector.h>
+#include "vehicle.h"
 class Junction
 {
 	public:
