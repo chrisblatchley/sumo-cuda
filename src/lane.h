@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <thrust/host_vector.h>
 #include "edge.h"
 #include "vehicle.h"
 using namespace std;
@@ -42,14 +43,16 @@ class Lane
 		Destructor of Lane object
 		*/
 		~Lane( void );
-	private:
+
+		//Public properties
+
 		//Name/Unique Identifier
-		string _uid;
+		string uid;
 
 		//Parent edge reference
-		Edge* _edge;
+		Edge* edge;
 
 		//Our vehicle list
-		vector<Vehicle*> _vehicles;
+		thrust::host_vector<Vehicle*> vehicles;
 };
 

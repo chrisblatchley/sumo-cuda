@@ -1,4 +1,4 @@
-#include "Route.h"
+#include "route.h"
 
 /**
 Constructor for Route object
@@ -6,7 +6,7 @@ Constructor for Route object
 */
 Route::Route( string uid )
 {
-	_uid = uid;
+	Route::uid = uid;
 }
 
 /**
@@ -15,7 +15,7 @@ Get the next edge in order on this Route
 */
 Edge* Route::getNextEdge( Edge* edge )
 {
-	for ( vector<Edge*>::iterator it = _edges.begin(); it != _edges.end(); it++ )
+	for ( thrust::host_vector<Edge*>::iterator it = edges.begin(); it != edges.end(); it++ )
 	{
 		//If we found the current edge...
 		if( *it == edge )
@@ -31,7 +31,7 @@ Retrieve the first edge on the Route
 */
 Edge* Route::begin()
 {
-	return _edges.front();
+	return edges.front();
 }
 
 /**
@@ -39,7 +39,7 @@ Retrieve the last edge on the Route
 */
 Edge* Route::end()
 {
-	return _edges.back();
+	return edges.back();
 }
 
 /**
@@ -49,7 +49,7 @@ Add an edge to the end of the Route
 void Route::addEdge( Edge* edge )
 {
 	//Add the edge to the back of the route
-	_edges.push_back( edge );
+	edges.push_back( edge );
 }
 
 /**

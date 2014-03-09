@@ -1,3 +1,4 @@
+ #include "network.h"
 /**
  * @file: network.cpp
  * @author: Chris Blatchley
@@ -6,17 +7,20 @@
  * Network implementation
  */
 
- #include "network.h"
-
 /**
  * Network Object Constructor
  */
-Network::Network(int maxTime) : maxTime(maxTime);
+Network::Network(int maxTime)
+{
+	Network::maxTime = maxTime;
+}
 
 /**
  * Network object desctructor
  */
-Network::~Network();
+Network::~Network()
+{
+}
 
 /**
  * runSimulation
@@ -33,7 +37,7 @@ void Network::runSimulation()
             edges[edgeIdx]->runLanes();
         }
 
-        for (int junctionIdx = 0; junctionIdx < junL; ++junctionIdx)
+        for (int junctionIdx = 0; junctionIdx < junctionsLen; ++junctionIdx)
         {
             junctions[junctionIdx]->runTimestep();
         }

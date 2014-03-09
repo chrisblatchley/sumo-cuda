@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>
+#include <thrust\host_vector.h>
 #include "edge.h"
 using namespace std;
+
 class Route
 {
 	public:
@@ -38,11 +39,13 @@ class Route
 		Destructor for the Route object
 		*/
 		~Route(void);
-	private:
+
+		//Public properties
+
 		//Name/Unique Identifier
-		string _uid;
+		string uid;
 
 		//Our list of edges
-		vector<Edge*> _edges;
+		thrust::host_vector<Edge*> edges;	
 };
 
