@@ -6,7 +6,7 @@
  * Vehicle implementation
  */
 
-#include "vehicle.h"
+#include "vehicle.cuh"
 
 Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 {

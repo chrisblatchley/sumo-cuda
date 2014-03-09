@@ -7,7 +7,7 @@
  */
 
 #pragma once
-#include "vehicle_control.h"
+#include "vehicle_control.cuh"
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 
