@@ -7,7 +7,7 @@
  */
 
 #pragma once
-#include "lane_changer.h"
+#include "lane_changer.cuh"
 
 LaneChanger::LaneChanger(void)
 {

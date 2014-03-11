@@ -8,7 +8,7 @@
 
 #pragma once
 #include <thrust/host_vector.h>
-#include "vehicle.h"
+#include "vehicle.cuh"
  
 class Junction
 {
