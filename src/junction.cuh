@@ -16,7 +16,7 @@ class Junction
 		@param uid		The name or unique identifier of this junction
 		@param shape	The style of junction logic this junction performs
 		*/
-		Junction( string uid, Shape shape );
+		Junction( std::string uid, Shape shape );
 
 		/**
 		Perform the junction logic for a timestep
@@ -38,7 +38,7 @@ class Junction
 		Shape shape;
 
 		//Identifier of the junction
-		string uid;
+		std::string uid;
 
 		//The waiting queue for the junction
 		thrust::host_vector< Vehicle * > waitQueue;

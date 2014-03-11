@@ -2,7 +2,6 @@
 #include <string>
 #include <thrust/host_vector.h>
 #include "edge.h"
-using namespace std;
 
 class Route
 {
@@ -11,18 +10,18 @@ class Route
 		Constructor for Route object
 		@param uid	The name or unique identifier of this route
 		*/
-		Route(string uid);
+		Route(std::string uid);
 
 		/**
 		Get the next edge in order on this Route
 		@param edge	The last edge relative to the one requested
 		*/
-		Edge* getNextEdge( Edge* edge );
+		Edge * getNextEdge( Edge * edge );
 
 		/**
 		Retrieve the first edge on the Route
 		*/
-		Edge* begin();
+		Edge * begin();
 
 		/**
 		Retrieve the last edge on the Route
@@ -43,9 +42,8 @@ class Route
 		//Public properties
 
 		//Name/Unique Identifier
-		string uid;
+		std::string uid;
 
 		//Our list of edges
 		thrust::host_vector<Edge*> edges;	
 };
-
