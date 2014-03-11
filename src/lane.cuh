@@ -1,8 +1,15 @@
+/**
+ * @file: lane.cuh
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Lane header
+ */
+
 #pragma once
 #include <thrust/host_vector.h>
 #include "edge.cuh"
 #include "vehicle.cuh"
-
 
 class Lane
 {
@@ -12,7 +19,7 @@ class Lane
 		@param uid		The name or unique identifier of this lane
 		@param edge	A pointer to the edge to which this lane belongs
 		*/
-		Lane( std::string uid, Edge* edge );
+		Lane( Edge* edge );
 
 		/**
 		Call the planMove method for all vehicles belonging to this lane
@@ -42,10 +49,9 @@ class Lane
 		*/
 		~Lane( void );
 
-		//Public properties
-
-		//Name/Unique Identifier
-		std::string uid;
+		/**
+		 * Public properties
+		 */
 
 		//Parent edge reference
 		Edge* edge;

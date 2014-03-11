@@ -1,3 +1,12 @@
+/**
+ * @file: lane.cu
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Lane implementation
+ */
+
+#pragma once
 #include "lane.cuh"
 
 /**
@@ -5,9 +14,8 @@ Constructor for Lane object
 @param uid		The name or unique identifier of this lane
 @param edge	A pointer to the edge to which this lane belongs
 */
-Lane::Lane(string uid, Edge* edge)
+Lane::Lane(Edge* edge)
 {
-	Lane::uid = uid;
 	Lane::edge = edge;
 }
 

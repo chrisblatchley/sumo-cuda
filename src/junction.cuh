@@ -1,8 +1,15 @@
+/**
+ * @file: junction.cuh
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Junction Header
+ */
+
 #pragma once
-#include <string>
-#include <queue>
 #include <thrust/host_vector.h>
 #include "vehicle.h"
+ 
 class Junction
 {
 	public:

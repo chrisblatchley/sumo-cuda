@@ -1,10 +1,11 @@
 /**
- * @file: edge.cpp
+ * @file: edge.cuh
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
- * Edge implementation
+ * Edge header
  */
+
 #pragma once
 #include "junction.cuh"
 #include "vehicle.cuh"
