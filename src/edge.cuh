@@ -9,6 +9,7 @@
 #pragma once
 #include "junction.cuh"
 #include "vehicle.cuh"
+#include "lane_changer.cuh"
 
 class Edge
 {
@@ -21,7 +22,12 @@ public:
      * @param junction  Terminal junction
      * @param laneChanger   Pointer to Lane Changer object
      */
-    Edge(float length, float maxSpeed, Junction *junction, LaneChanger* laneChanger);
+    Edge(float length, float maxSpeed, Junction *junction);
+
+	/**
+	 * Class destructor
+	 */
+	~Edge(void);
 
     /**
      * runLanes
@@ -35,7 +41,7 @@ public:
      * @param lane      Lane to add vehicle to
      * @return          Boolean value if vehicle can be added
      */
-    bool addVehicle(Vehicle * vehicle, int lane = 0);
+    bool addVehicle(Vehicle * vehicle, int lane);
 
     /**
      * removeVehicle

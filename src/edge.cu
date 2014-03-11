@@ -31,17 +31,18 @@ Edge::~Edge()
  */
 void Edge::runLanes()
 {
-    for (int laneIdx = 0; laneIdx < laneLen; ++laneIdx)
-    {
-        lanes[laneIdx]->planMovements();
-    }
+
+	for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+	{
+		(*it)->planMovements();
+	}
 
     laneChanger->planMovements();
 
-    for (int laneIdx = 0; laneIdx < laneLen; ++laneIdx)
-    {
-        lanes[laneIdx]->executeMovements();
-    }
+    for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+	{
+		(*it)->executeMovements();
+	}
 }
 
 /**
@@ -52,5 +53,5 @@ void Edge::runLanes()
  */
 bool Edge::addVehicle(Vehicle * vehicle, int lane = 0)
 {
-    return false;
+    return true;
 }
