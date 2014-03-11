@@ -1,5 +1,13 @@
+/**
+ * @file: junction.cu
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Junction implementation
+ */
+
+#pragma once
 #include "junction.cuh"
-using namespace std;
 
 /**
 Constructor for Junction object
