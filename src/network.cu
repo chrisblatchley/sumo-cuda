@@ -1,11 +1,12 @@
- #include "network.cuh"
 /**
- * @file: network.cpp
+ * @file: network.cu
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
- * Network implementation
+ * Network object implementation
  */
+#pragma once
+#include "network.cuh"
 
 /**
  * Network Object Constructor

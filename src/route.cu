@@ -1,3 +1,11 @@
+/**
+ * @file: route.cu
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Route object implementation
+ */
+#pragma once
 #include "route.cuh"
 
 /**

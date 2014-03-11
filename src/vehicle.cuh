@@ -1,13 +1,14 @@
 /**
- * @file: vehicle.h
+ * @file: vehicle.cuh
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
- * Vehicle headers
+ * Vehicle header file
  */
 #pragma once
 #include "route.cuh"
 #include "lane.cuh"
+#include "edge.cuh"
 
 class Vehicle
 {

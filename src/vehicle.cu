@@ -1,11 +1,10 @@
 /**
- * @file: vehicle.cpp
+ * @file: vehicle.cu
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
- * Vehicle implementation
+ * Vehicle object implementation
  */
-
 #pragma once
 #include "vehicle.cuh"
 #include "route.cuh"

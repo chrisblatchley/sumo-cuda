@@ -1,10 +1,11 @@
 /**
- * @file: network.h
+ * @file: network.cuh
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
  * Network header file
  */
+#pragma once
 #include "edge.cuh"
 #include "junction.cuh"
 #include "route.cuh"

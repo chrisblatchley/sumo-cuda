@@ -1,11 +1,11 @@
 /**
- * @file: sumo_cuda.cpp
+ * @file: sumo_cuda.cu
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
  * Main entry point for sumo-cuda
  */
-
+#pragma once
 #include <cstdio>
 #include "network.cuh"
 

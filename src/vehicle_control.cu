@@ -1,11 +1,10 @@
 /**
- * @file: vehicle_control.cpp
+ * @file: vehicle_control.cu
  * @author: Chris Blatchley
  * @author: Thad Bond
  *
- * Vehicle controller implementation
+ * Vehicle controller object implementation
  */
-
 #pragma once
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>

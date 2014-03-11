@@ -1,7 +1,14 @@
+/**
+ * @file: route.cuh
+ * @author: Chris Blatchley
+ * @author: Thad Bond
+ *
+ * Route header file
+ */
 #pragma once
 #include <string>
 #include <thrust/host_vector.h>
-#include "edge.h"
+#include "edge.cuh"
 
 class Route
 {
