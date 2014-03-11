@@ -5,49 +5,47 @@
  *
  * Edge implementation
  */
-#pragma once
 #include "junction.cuh"
 #include "vehicle.cuh"
-using namespace std;
-
+#include "lane_changer.cuh"
 class Edge
 {
-public:
+	public:
 
-    /**
-     * Class Constructor and Destructor
-     */
-    Edge(float length, float maxSpeed, Junction *junction) : length(length), maxSpeed(maxSpeed), junction(junction);
-    ~Edge();
+		/**
+		 * Class Constructor and Destructor
+		 */
+		Edge(float length, float maxSpeed, Junction *junction);
+		~Edge();
 
-    /**
-     * runLanes
-     * Runs a timestep for the lanes in an edge
-     */
-    void runLanes();
+		/**
+		 * runLanes
+		 * Runs a timestep for the lanes in an edge
+		 */
+		void runLanes();
 
-    /**
-     * addVehicle
-     * @param vehicle   Vehicle to add to lane
-     * @param lane      Lane to add vehicle to
-     * @return          Boolean value if vehicle can be added
-     */
-    bool addVehicle(Vehicle * vehicle, int lane = 0);
+		/**
+		 * addVehicle
+		 * @param vehicle   Vehicle to add to lane
+		 * @param lane      Lane to add vehicle to
+		 * @return          Boolean value if vehicle can be added
+		 */
+		bool addVehicle(Vehicle * vehicle, int lane = 0);
     
-    // length : Floating point value of length in meters
-    float length;
+		// length : Floating point value of length in meters
+		float length;
 
-    // maxSpeed : Float value of maximum speed in meters per second
-    float maxSpeed;
+		// maxSpeed : Float value of maximum speed in meters per second
+		float maxSpeed;
 
-    // junction : Pointer to junction at terminal end of edge
-    Junction * junction;
+		// junction : Pointer to junction at terminal end of edge
+		Junction * junction;
 
-    // lanes : Pointer to array of lanes
-    Lane * lanes;
-    // laneLen : Integer length of lanes array
-    int laneLen;
+		// lanes : Pointer to array of lanes
+		Lane * lanes;
+		// laneLen : Integer length of lanes array
+		int laneLen;
 
-    // laneChanger : Pointer to Lane Changer Object
-    LaneChanger * laneChanger;
+		// laneChanger : Pointer to Lane Changer Object
+		LaneChanger * laneChanger;
 };

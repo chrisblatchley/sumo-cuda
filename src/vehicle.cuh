@@ -7,7 +7,6 @@
  */
 #include "route.cuh"
 #include "lane.cuh"
-using namespace std;
 
 class Vehicle
 {
@@ -16,9 +15,9 @@ class Vehicle
 		/**
 		 * Class Constants
 		 */
-		const float Vehicle::ACCEL_FACTOR = 5.0;
-		const float Vehicle::CRUISE_ACCEL = 0.0;
-		const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT = 2;
+		static const float Vehicle::ACCEL_FACTOR;
+		static const float Vehicle::CRUISE_ACCEL;
+		static const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT;
 
 		/**
 		 * Struct Style

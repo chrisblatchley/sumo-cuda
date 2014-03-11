@@ -1,11 +1,8 @@
 #pragma once
 #include <string>
-#include <vector>
 #include <thrust/host_vector.h>
 #include "edge.cuh"
 #include "vehicle.cuh"
-using namespace std;
-
 class Lane
 {
 	public:
@@ -14,7 +11,7 @@ class Lane
 		@param uid		The name or unique identifier of this lane
 		@param edge	A pointer to the edge to which this lane belongs
 		*/
-		Lane( string uid, Edge* edge );
+		Lane( std::string uid, Edge* edge );
 
 		/**
 		Call the planMove method for all vehicles belonging to this lane
@@ -47,7 +44,7 @@ class Lane
 		//Public properties
 
 		//Name/Unique Identifier
-		string uid;
+		std::string uid;
 
 		//Parent edge reference
 		Edge* edge;

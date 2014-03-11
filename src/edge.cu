@@ -8,17 +8,21 @@
 
 #include "edge.cuh"
 
-// *
-//  * Class constructor and destructor
- 
-// Edge::Edge() {
+/**
+Constructor for Edge object
+@param length	The length of the edge
+@param maxSpeed The speed limit of the edge
+@param junction The junction at which the edge terminated
+*/
+Edge::Edge(float length, float maxSpeed, Junction *junction)
+{
+		Edge::length = length;
+		Edge::maxSpeed = maxSpeed;
+		Edge::junction = junction;
+}
 
-// }
-
-// Edge::~Edge()
-// {
-
-// }
+Edge::~Edge()
+{}
 
 /**
  * runLanes
@@ -47,5 +51,5 @@ void Edge::runLanes()
  */
 bool Edge::addVehicle(Vehicle * vehicle, int lane = 0)
 {
-    return false;
+    return true;
 }

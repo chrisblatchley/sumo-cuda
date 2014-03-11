@@ -5,17 +5,18 @@
  *
  * Network header file
  */
+#pragma once
 #include "edge.cuh"
 #include "junction.cuh"
 #include "route.cuh"
-using namespace std;
+#include "vehicle_control.cuh"
 
 class Network
 {
 public:
     
     // Class constructor and destructor
-    Network(int maxTime) : maxTime(maxTime);
+    Network(int maxTime);
     ~Network();
 
     /**
