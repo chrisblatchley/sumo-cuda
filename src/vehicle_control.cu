@@ -35,7 +35,7 @@ bool VehicleControl::addVehicle(Vehicle *vehicle)
 	//STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
     if( edge->addVehicle( vehicle, 0 ) )
     {
-        vehicles.push_back(vehicle);
+        vehicles.push_back(*vehicle);
         return true;
     }
     return false;
@@ -43,11 +43,13 @@ bool VehicleControl::addVehicle(Vehicle *vehicle)
 
 /**
  * queueVehicle
- * @param vehicle   The vehicle to add to waiting queue
+ * @param r     The Route to add the new vehicle to
+ * @param style The style of the new vehicle
+ * @param depart    Timestep when the new vehicle is supposed to start
  */
-void VehicleControl::queueVehicle(Vehicle *vehicle)
+void VehicleControl::queueVehicle(Route *r, Vehicle::Style style, int depart)
 {
-    waiting.push_back(vehicle);
+    waiting.push_back( Vehicle(r, style, depart) );
 }
 
 /**
@@ -57,9 +59,9 @@ void VehicleControl::queueVehicle(Vehicle *vehicle)
 void VehicleControl::deleteVehicle(Vehicle *vehicle)
 {
     ++endedVehicles;
-    for (thrust::host_vector<Vehicle *>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
+    for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
     {
-        if( *it == vehicle)
+        if( &(*it) == vehicle)
         {
             vehicles.erase(it); 
             break;
@@ -74,23 +76,22 @@ void VehicleControl::deleteVehicle(Vehicle *vehicle)
 void VehicleControl::refreshTimestep(int timeStep)
 {
     // Add ready vehicles from the waiting list
-    for (thrust::host_vector<Vehicle *>::iterator it = waiting.begin(); it != waiting.end(); ++it)
+    for (thrust::host_vector<Vehicle>::iterator it = waiting.begin(); it != waiting.end(); ++it)
     {
-        if( (*it)->depart >= timeStep )
+        if( (*it).depart >= timeStep )
         {
-            if( addVehicle(*it) )
+            if( addVehicle( &(*it) ) )
             {
-                vehicles.push_back(*it);
+                vehicles.push_back( (*it) );
                 waiting.erase(it);
             }
         }
     }
 
     // Remove vehicles from the running list
-    for (thrust::host_vector<Vehicle *>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
+    for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
     {
-        if( (*it)->currEdge == (*it)->route->end() )
-            if( (*it)->pos >= (*it)->route->end()->length )
+        if( (*it).currEdge == (*it).route->end() && (*it).pos >= (*it).route->end()->length )
                 vehicles.erase(it);
     }
 }

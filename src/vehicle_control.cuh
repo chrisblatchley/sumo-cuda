@@ -37,7 +37,7 @@ public:
      * queueVehicle
      * @param vehicle   The vehicle to add to waiting queue
      */
-    void queueVehicle(Vehicle *vehicle);
+    void queueVehicle(Route *r, Vehicle::Style style, int depart);
 
     /**
      * deleteVehicle
@@ -51,10 +51,10 @@ public:
     void refreshTimestep(int timeStep);
     
     // vehicles : Thrust vector of Vehicle pointers
-    thrust::host_vector<Vehicle *> vehicles;
+    thrust::host_vector<Vehicle> vehicles;
 
     // waiting : Thrust vector
-    thrust::host_vector<Vehicle *> waiting;
+    thrust::host_vector<Vehicle> waiting;
 
     int endedVehicles;
 
