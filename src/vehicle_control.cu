@@ -33,7 +33,8 @@ VehicleControl::VehicleControl()
 bool VehicleControl::addVehicle(Vehicle *vehicle)
 {
     Edge *edge = vehicle->route->begin();
-    if( edge->addVehicle( vehicle ) )
+	//STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
+    if( edge->addVehicle( vehicle, 0 ) )
     {
         vehicles.push_back(vehicle);
         return true;

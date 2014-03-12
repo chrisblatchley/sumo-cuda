@@ -51,7 +51,7 @@ void Edge::runLanes()
  * @param lane      Lane to add vehicle to
  * @return          Boolean value if vehicle can be added
  */
-bool Edge::addVehicle(Vehicle * vehicle, int lane = 0)
+bool Edge::addVehicle(Vehicle * vehicle, int lane)
 {
     return true;
 }

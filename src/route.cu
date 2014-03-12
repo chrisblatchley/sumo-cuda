@@ -12,10 +12,8 @@
 Constructor for Route object
 @param uid	The name or unique identifier of this route
 */
-Route::Route( string uid )
-{
-	Route::uid = uid;
-}
+Route::Route()
+{}
 
 /**
 Get the next edge in order on this Route
@@ -29,9 +27,10 @@ Edge* Route::getNextEdge( Edge* edge )
 		if( *it == edge )
 		{
 			//Return the std::next edge
-			return *next(it);
+			return *it++;
 		}
 	}
+	//TODO OTHERWISE WERE TOTALLY SCREWED
 }
 
 /**

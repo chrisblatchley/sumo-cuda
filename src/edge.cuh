@@ -45,6 +45,7 @@ public:
      * @param lane      Lane to add vehicle to
      * @return          Boolean value if vehicle can be added
      */
+	//TODO FIX DEFAULT ARGUMENTS
     bool addVehicle(Vehicle * vehicle, int lane);
 
     /**
