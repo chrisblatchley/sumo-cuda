@@ -9,7 +9,9 @@
 #include <string>
 #include <thrust/host_vector.h>
 #include "edge.cuh"
+
 class Edge;
+
 class Route
 {
 	public:

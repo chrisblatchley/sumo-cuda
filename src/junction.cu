@@ -25,7 +25,7 @@ void Junction::runTimestep()
 {
 	switch ( shape )
 	{
-		case Shape::Throughway:
+		case Throughway:
 			while ( !waitQueue.empty() )
 			{
 				//Retrieve the first vehicle from the waiting queue
@@ -36,7 +36,7 @@ void Junction::runTimestep()
 				waitQueue.erase( waitQueue.begin() );
 			}
 			break;
-		case Shape::AllStop:
+		case AllStop:
 			//Retrieve the first vehicle from the waiting queue
 			Vehicle * currentVehicle = waitQueue.front();
 			//Send the vehicle to the next edge on its route

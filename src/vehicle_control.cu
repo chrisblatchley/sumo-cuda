@@ -6,10 +6,7 @@
  * Vehicle controller object implementation
  */
 #pragma once
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
 #include "vehicle_control.cuh"
-#include "vehicle.cuh"
 
 /**
  * Class Constructor and Destructor
@@ -23,7 +20,9 @@ VehicleControl::VehicleControl()
     endedVehicles = 0;
 }
 
-// VehicleControl::~VehicleControl();
+VehicleControl::~VehicleControl()
+{
+}
 
 /**
  * addVehicle

@@ -55,3 +55,22 @@ bool Edge::addVehicle(Vehicle * vehicle, int lane)
 {
     return true;
 }
+
+/**
+ * removeVehicle
+ * @param vehicle   Vehicle to be removed
+ */
+void Edge::removeVehicle(Vehicle * vehicle)
+{
+    return;
+    // TODO: implement this. THAD!
+}
+
+/**
+ * addLane
+ */
+void Edge::addLane()
+{
+    return;
+    // TODO: Implement this also, THAD!
+}
