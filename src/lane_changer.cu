@@ -18,6 +18,11 @@ void LaneChanger::planMovements()
 	
 }
 
+void LaneChanger::executeMovements()
+{
+
+}
+
 LaneChanger::~LaneChanger(void)
 {
 }

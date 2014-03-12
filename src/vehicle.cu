@@ -13,11 +13,19 @@ const float Vehicle::ACCEL_FACTOR = 5.0;
 const float Vehicle::CRUISE_ACCEL = 0.0;
 const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT = 2;
 
+/**
+ * Class Constructor and Destructor
+ */
 Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 {
 	Vehicle::route = route;
 	Vehicle::style = style;
 	Vehicle::depart = depart;
+}
+
+Vehicle::~Vehicle()
+{
+
 }
 
 /**

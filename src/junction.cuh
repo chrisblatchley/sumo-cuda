@@ -45,9 +45,6 @@ class Junction
 		//The shape of the junction
 		Shape shape;
 
-		//Identifier of the junction
-		std::string uid;
-
 		//The waiting queue for the junction
 		thrust::host_vector< Vehicle * > waitQueue;
 };

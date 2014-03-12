@@ -22,6 +22,9 @@ Edge::Edge(float length, float maxSpeed, Junction *junction)
 		Edge::junction = junction;
 }
 
+/**
+ * Destructor
+ */
 Edge::~Edge()
 {}
 
