@@ -70,16 +70,16 @@ void Lane::addVehicle(Vehicle* vehicle, bool beginning = false)
 		//Find the correct location within the vehicle vector to place us
 		for ( thrust::host_vector<Vehicle*>::iterator it = vehicles.begin(); it != vehicles.end(); it++ )
 		{
-			if ( next( it ) == vehicles.end() )
+			if ( it+1 == vehicles.end() )
 			{
 				//We are at the last element of the vector, so just push the vehicle to the back
 				vehicles.push_back(vehicle);
 				break;
 			}
-			if ( ( vehicle->pos > ( *it )->pos ) && ( vehicle->pos < (*next( it ))->pos ) )
+			if ( ( vehicle->pos > ( *it )->pos ) && ( vehicle->pos < (*it+1)->pos ) )
 			{
 				//The next slot is where we are supposed to fit, so lets go there
-				vehicles.insert( next( it ), vehicle );
+				vehicles.insert( it+1, vehicle );
 				break;
 			}
 		}

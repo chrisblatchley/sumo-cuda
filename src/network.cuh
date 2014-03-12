@@ -10,7 +10,10 @@
 #include "junction.cuh"
 #include "route.cuh"
 #include "vehicle_control.cuh"
-
+class Edge;
+class Junction;
+class Route;
+class VehicleControl;
 class Network
 {
 public:
@@ -27,19 +30,13 @@ public:
     
     
     // edges : Pointer to array of edges
-    Edge * edges;
-    // edgesLen : Integer length of edges array
-    int edgesLen;
+    thrust::host_vector<Edge*> edges;
     
     // junctions : Pointer to array of junctions
-    Junction * junctions;
-    // junctionsLen : Integer length of junctions array
-    int junctionsLen;
+    thrust::host_vector<Junction*> junctions;
 
     // routes : Pointer to array of routes
-    Route * routes;
-    // routesLen : Integer length of routes array
-    int routesLen;
+    thrust::host_vector<Route*> routes;
 
     // timeStep : Integer representing the current timestep of the simulation.
     //            Measured in SECONDS

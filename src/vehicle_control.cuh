@@ -9,7 +9,7 @@
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 #include "vehicle.cuh"
-
+class Vehicle;
 class VehicleControl
 {
 public:

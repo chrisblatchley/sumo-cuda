@@ -9,7 +9,9 @@
 #include "route.cuh"
 #include "lane.cuh"
 #include "edge.cuh"
-
+class Lane;
+class Edge;
+class Route;
 class Vehicle
 {
 	public:

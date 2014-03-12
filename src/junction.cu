@@ -11,12 +11,10 @@
 
 /**
 Constructor for Junction object
-@param uid		The name or unique identifier of this junction
 @param shape	The style of junction logic this junction performs
 */
-Junction::Junction( string uid, Shape shape )
+Junction::Junction( Shape shape )
 {
-	Junction::uid = uid;
 	Junction::shape = shape;
 }
 

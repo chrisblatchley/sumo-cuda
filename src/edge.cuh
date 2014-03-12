@@ -10,7 +10,11 @@
 #include "junction.cuh"
 #include "vehicle.cuh"
 #include "lane_changer.cuh"
-
+#include "lane.cuh"
+class Junction;
+class Vehicle;
+class LaneChanger;
+class Lane;
 class Edge
 {
 public:

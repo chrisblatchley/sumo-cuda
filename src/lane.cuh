@@ -10,7 +10,8 @@
 #include <thrust/host_vector.h>
 #include "edge.cuh"
 #include "vehicle.cuh"
-
+class Edge;
+class Vehicle;
 class Lane
 {
 	public:

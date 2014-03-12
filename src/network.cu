@@ -33,15 +33,15 @@ void Network::runSimulation()
     {
         vehicleController->refreshTimestep(timeStep);
 
-        for (int edgeIdx = 0; edgeIdx < edgesLen; ++edgeIdx)
-        {
-            edges[edgeIdx]->runLanes();
-        }
+		for ( thrust::host_vector<Edge*>::iterator it = edges.begin(); it != edges.end(); it++ )
+		{
+			(*it)->runLanes();
+		}
 
-        for (int junctionIdx = 0; junctionIdx < junctionsLen; ++junctionIdx)
-        {
-            junctions[junctionIdx]->runTimestep();
-        }
+        for ( thrust::host_vector<Junction*>::iterator it = junctions.begin(); it != junctions.end(); it++ )
+		{
+			(*it)->runTimestep();
+		}
 
         ++timeStep;
     }
