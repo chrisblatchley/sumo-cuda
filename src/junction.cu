@@ -13,7 +13,7 @@
 Constructor for Junction object
 @param shape	The style of junction logic this junction performs
 */
-Junction::Junction( Shape shape )
+Junction::Junction( Junction::Shape shape )
 {
 	Junction::shape = shape;
 }

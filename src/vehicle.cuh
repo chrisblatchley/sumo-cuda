@@ -19,9 +19,9 @@ class Vehicle
 		/**
 		 * Class Constants
 		 */
-		static const float Vehicle::ACCEL_FACTOR;
-		static const float Vehicle::CRUISE_ACCEL;
-		static const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT;
+		static const float ACCEL_FACTOR;
+		static const float CRUISE_ACCEL;
+		static const int MIN_CAR_LENGTHS_IN_FRONT;
 
 		/**
 		 * Struct Style

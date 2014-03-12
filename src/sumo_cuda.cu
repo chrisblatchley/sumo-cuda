@@ -5,7 +5,6 @@
  *
  * Main entry point for sumo-cuda
  */
-#pragma once
 #include <cstdio>
 #include "network.cuh"
 

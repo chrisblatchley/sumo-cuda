@@ -9,20 +9,22 @@
 #pragma once
 #include <thrust/host_vector.h>
 #include "vehicle.cuh"
+
 class Vehicle;
+
 class Junction
 {
 	public:
 		/**
 		An enumeration class for different types of junction logic
 		*/
-		static enum class Shape { Throughway, AllStop };
+		enum Shape { Throughway, AllStop };
 
 		/**
 		Constructor for Junction object
 		@param shape	The style of junction logic this junction performs
 		*/
-		Junction( Shape shape );
+		Junction( Junction::Shape shape );
 
 		/**
 		Perform the junction logic for a timestep
