@@ -5,9 +5,10 @@
  *
  * Vehicle object implementation
  */
-#pragma once
+// #pragma once
 #include "vehicle.cuh"
 #include "route.cuh"
+#include <cstdio>
 
 const float Vehicle::ACCEL_FACTOR = 5.0;
 const float Vehicle::CRUISE_ACCEL = 0.0;
@@ -18,9 +19,9 @@ const int Vehicle::MIN_CAR_LENGTHS_IN_FRONT = 2;
  */
 Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 {
-	Vehicle::route = route;
-	Vehicle::style = style;
-	Vehicle::depart = depart;
+	this->route = route;
+	this->style = style;
+	this->depart = depart;
 }
 
 Vehicle::~Vehicle()
@@ -69,7 +70,8 @@ void Vehicle::planMove(Vehicle* pred, float distance)
         accelFactor = ACCEL_FACTOR;
     }
 
-    currSpeed = currSpeed + accelFactor;
+    // currSpeed = currSpeed + accelFactor;
+    currSpeed = currSpeed + ACCEL_FACTOR;
     nextPos = pos + currSpeed;
 }
 
@@ -78,5 +80,6 @@ void Vehicle::planMove(Vehicle* pred, float distance)
  */
 void Vehicle::executeMove()
 {
+    printf("\t%4p: %.2f\n", this, pos);
     pos = nextPos;
 }

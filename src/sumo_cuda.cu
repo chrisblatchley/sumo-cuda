@@ -7,6 +7,10 @@
  */
 #include <cstdio>
 #include "network.cuh"
+#include "junction.cuh"
+#include "edge.cuh"
+#include "route.cuh"
+#include "vehicle_control.cuh"
 
 void printHelpString()
 {
@@ -18,18 +22,18 @@ void printHelpString()
 
 void test()
 {
+    Network network(150);
+    Junction * j1 = network.addJunction( Junction::AllStop );
+    Edge *e1 = network.addEdge( 1000.00, 30.0, j1 );
+    Route *r1 = network.addRoute();
+    r1->addEdge(e1);
+    Vehicle::Style style = {5.0, 30.0};
+    (network.vehicleController)->queueVehicle(r1, style, 5);
+    network.runSimulation();
 }
 
 int main(int argc, char const *argv[])
 {
-    if (argc > 1)
-    {
-        if ( argv[1] == "test" )
-        {
-            test();
-            return 0;
-        }
-    }
-    printHelpString();
+    test();
     return 0;
 }

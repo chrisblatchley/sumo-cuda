@@ -10,8 +10,10 @@
 #include <thrust/host_vector.h>
 #include "edge.cuh"
 #include "vehicle.cuh"
+
 class Edge;
 class Vehicle;
+
 class Lane
 {
 	public:
@@ -37,7 +39,7 @@ class Lane
 		@param vehicle		The vehicle to add
 		@param beginning	Indicator as to whether the vehicle can simply be added to beginning of lane
 		*/
-		void addVehicle(Vehicle* vehicle, bool beginning);
+		bool addVehicle(Vehicle* vehicle, bool beginning);
 
 		/**
 		Remove a vehicle from the lane

@@ -27,28 +27,30 @@ public:
     ~VehicleControl();
 
     /**
-     * addVehicle
-     * @param vehicle   Pointer to vehicle to add
-     * @return  boolean whether vehicle was successfully added to route
-     */
-    bool addVehicle(Vehicle *vehicle);
-
-    /**
      * queueVehicle
      * @param vehicle   The vehicle to add to waiting queue
      */
     void queueVehicle(Route *r, Vehicle::Style style, int depart);
 
     /**
+     * refreshTimestep
+     */
+    void refreshTimestep(int timeStep);
+    
+    /**
+     * addVehicle
+     * @param vehicle   Vehicle to add
+     * @return  boolean whether vehicle was successfully added to route
+     */
+    bool addVehicle(Vehicle vehicle);
+
+private:
+
+    /**
      * deleteVehicle
      * @param vehicle   The vehicle to discard
      */
     void deleteVehicle(Vehicle *vehicle);
-
-    /**
-     * refreshTimestep
-     */
-    void refreshTimestep(int timeStep);
     
     // vehicles : Thrust vector of Vehicle pointers
     thrust::host_vector<Vehicle> vehicles;
@@ -58,4 +60,37 @@ public:
 
     int endedVehicles;
 
+};
+
+/**
+ * readyToAdd
+ * Functor for adding vehicle from waiting queue to active queue
+ * @attribute timeStep  timestep state of when vehicle is called
+ * @attribute vc        reference to vehicleController when called
+ */
+class readyToAdd {
+private:
+    int timeStep;
+    VehicleControl *vc;
+public:
+    __host__ __device__ readyToAdd(int time, VehicleControl *v)
+    {
+        timeStep = time;
+        vc = v;
+    }
+    __host__ __device__ bool operator()(const Vehicle v)
+    {
+        return ( timeStep >= v.depart && vc->addVehicle( v ) );
+    };
+};
+
+/**
+ * readyToRemove
+ * Functor for removing a completed vehicle from active queue
+ */
+struct readyToRemove {
+    __host__ __device__ bool operator()(const Vehicle v)
+    {
+        return ( v.currEdge == v.route->end() && v.pos >= v.route->end()->length );
+    };
 };
