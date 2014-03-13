@@ -50,9 +50,6 @@ class Route
 
 		//Public properties
 
-		//Name/Unique Identifier
-		std::string uid;
-
 		//Our list of edges
 		thrust::host_vector<Edge*> edges;	
 };

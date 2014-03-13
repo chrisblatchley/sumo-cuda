@@ -6,7 +6,7 @@
  * Lane Changer Inplementation
  */
 
-#pragma once
+// #pragma once
 #include "lane_changer.cuh"
 
 LaneChanger::LaneChanger(void)

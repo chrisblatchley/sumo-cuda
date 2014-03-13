@@ -26,7 +26,6 @@ public:
      * @param length    Length of edge in meters
      * @param maxSpeed  Max speed on edge in meters/sec
      * @param junction  Terminal junction
-     * @param laneChanger   Pointer to Lane Changer object
      */
     Edge(float length, float maxSpeed, Junction *junction);
 
@@ -71,7 +70,7 @@ public:
     Junction * junction;
 
     // lanes : Thrust vector of lanes
-    thrust::host_vector<Lane *>lanes;
+    thrust::host_vector<Lane>lanes;
 
     // laneChanger : Pointer to Lane Changer Object
     LaneChanger * laneChanger;

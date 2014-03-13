@@ -5,12 +5,11 @@
  *
  * Route object implementation
  */
-#pragma once
+// #pragma once
 #include "route.cuh"
 
 /**
 Constructor for Route object
-@param uid	The name or unique identifier of this route
 */
 Route::Route()
 {}

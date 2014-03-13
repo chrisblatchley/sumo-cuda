@@ -6,7 +6,7 @@
  * Lane implementation
  */
 
-#pragma once
+// #pragma once
 #include "lane.cuh"
 
 /**
@@ -16,7 +16,7 @@ Constructor for Lane object
 */
 Lane::Lane(Edge* edge)
 {
-	Lane::edge = edge;
+	this->edge = edge;
 }
 
 /**
@@ -60,12 +60,13 @@ Add a vehicle to the lane
 @param vehicle		The vehicle to add
 @param beginning	Indicator as to whether the vehicle can simply be added to beginning of lane
 */
-void Lane::addVehicle(Vehicle* vehicle, bool beginning = false)
+bool Lane::addVehicle(Vehicle* vehicle, bool beginning = false)
 {
 	if ( beginning == true )
 	{
 		//We are at the start of the lane, so we'll just push the vehicle to the beginning of the vector
 		vehicles.push_back(vehicle);
+		return true;
 	}else{
 		//Find the correct location within the vehicle vector to place us
 		for ( thrust::host_vector<Vehicle*>::iterator it = vehicles.begin(); it != vehicles.end(); it++ )
@@ -74,15 +75,16 @@ void Lane::addVehicle(Vehicle* vehicle, bool beginning = false)
 			{
 				//We are at the last element of the vector, so just push the vehicle to the back
 				vehicles.push_back(vehicle);
-				break;
+				return true;
 			}
 			if ( ( vehicle->pos > ( *it )->pos ) && ( vehicle->pos < (*it+1)->pos ) )
 			{
 				//The next slot is where we are supposed to fit, so lets go there
 				vehicles.insert( it+1, vehicle );
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 }
 

@@ -5,8 +5,9 @@
  *
  * Vehicle controller object implementation
  */
-#pragma once
+// #pragma once
 #include "vehicle_control.cuh"
+#include <thrust/remove.h>
 
 /**
  * Class Constructor and Destructor
@@ -29,13 +30,13 @@ VehicleControl::~VehicleControl()
  * @param vehicle   Pointer to vehicle to add
  * @return  boolean whether vehicle was successfully added to route
  */
-bool VehicleControl::addVehicle(Vehicle *vehicle)
+bool VehicleControl::addVehicle(Vehicle vehicle)
 {
-    Edge *edge = vehicle->route->begin();
+    Edge *edge = vehicle.route->begin();
 	//STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
-    if( edge->addVehicle( vehicle, 0 ) )
+    if( edge->addVehicle( &vehicle, 0 ) )
     {
-        vehicles.push_back(*vehicle);
+        vehicles.push_back(vehicle);
         return true;
     }
     return false;
@@ -59,14 +60,16 @@ void VehicleControl::queueVehicle(Route *r, Vehicle::Style style, int depart)
 void VehicleControl::deleteVehicle(Vehicle *vehicle)
 {
     ++endedVehicles;
-    for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
-    {
-        if( &(*it) == vehicle)
-        {
-            vehicles.erase(it); 
-            break;
-        }
-    }
+
+    // for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
+    // {
+    //     if( &(*it) == vehicle)
+    //     {
+    //         it = vehicles.erase(it); 
+    //         break;
+    //     }
+    // }
+    
     vehicle->currEdge->removeVehicle(vehicle);
 }
 
@@ -75,23 +78,44 @@ void VehicleControl::deleteVehicle(Vehicle *vehicle)
  */
 void VehicleControl::refreshTimestep(int timeStep)
 {
-    // Add ready vehicles from the waiting list
-    for (thrust::host_vector<Vehicle>::iterator it = waiting.begin(); it != waiting.end(); ++it)
-    {
-        if( (*it).depart >= timeStep )
-        {
-            if( addVehicle( &(*it) ) )
-            {
-                vehicles.push_back( (*it) );
-                waiting.erase(it);
-            }
-        }
-    }
 
-    // Remove vehicles from the running list
-    for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
-    {
-        if( (*it).currEdge == (*it).route->end() && (*it).pos >= (*it).route->end()->length )
-                vehicles.erase(it);
-    }
+    readyToAdd pred(timeStep, this);
+    waiting.erase( thrust::remove_if( waiting.begin(), waiting.end(), pred ), waiting.end() );
+    vehicles.erase( thrust::remove_if( vehicles.begin(), vehicles.end(), readyToRemove() ), vehicles.end() );
+
+    // // Add ready vehicles from the waiting list
+    // for (thrust::host_vector<Vehicle>::iterator it = waiting.begin(); it != waiting.end(); ++it)
+    // {
+    //     if( timeStep >= (*it).depart && addVehicle( (*it) ) )
+    //     {
+    //         if ( it == waiting.back())
+    //         {
+    //             waiting.pop_back();
+    //             break;
+    //         }
+    //         else
+    //         {
+    //             it = waiting.erase(it);
+    //         }
+    //     }
+    // }
+
+
+    // // Remove vehicles from the running list
+    // for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
+    // {
+    //     if( (*it).currEdge == (*it).route->end() && (*it).pos >= (*it).route->end()->length )
+    //     {
+    //         // it = vehicles.erase(it);
+    //         if ( it == vehicles.back())
+    //         {
+    //             vehicles.pop_back();
+    //             break;
+    //         }
+    //         else
+    //         {
+    //             it = vehicles.erase(it);
+    //         }
+    //     }
+    // }
 }

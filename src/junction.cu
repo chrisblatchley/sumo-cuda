@@ -6,7 +6,7 @@
  * Junction implementation
  */
 
-#pragma once
+// #pragma once
 #include "junction.cuh"
 
 /**
@@ -15,7 +15,7 @@ Constructor for Junction object
 */
 Junction::Junction( Junction::Shape shape )
 {
-	Junction::shape = shape;
+	this->shape = shape;
 }
 
 /**
@@ -37,6 +37,7 @@ void Junction::runTimestep()
 			}
 			break;
 		case AllStop:
+			if( waitQueue.empty() ) break;
 			//Retrieve the first vehicle from the waiting queue
 			Vehicle * currentVehicle = waitQueue.front();
 			//Send the vehicle to the next edge on its route

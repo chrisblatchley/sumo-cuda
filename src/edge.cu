@@ -6,20 +6,22 @@
  * Edge implementation
  */
 
-#pragma once
+// #pragma once
 #include "edge.cuh"
 
 /**
 Constructor for Edge object
-@param length	The length of the edge
+@param length   The length of the edge
 @param maxSpeed The speed limit of the edge
 @param junction The junction at which the edge terminated
 */
 Edge::Edge(float length, float maxSpeed, Junction *junction)
 {
-		Edge::length = length;
-		Edge::maxSpeed = maxSpeed;
-		Edge::junction = junction;
+    this->length = length;
+    this->maxSpeed = maxSpeed;
+    this->junction = junction;
+    // Minimum lanes in an edge is 1.
+    lanes.push_back( Lane( this ) );
 }
 
 /**
@@ -35,17 +37,17 @@ Edge::~Edge()
 void Edge::runLanes()
 {
 
-	for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
-	{
-		(*it)->planMovements();
-	}
+    for ( thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+    {
+        (*it).planMovements();
+    }
 
     laneChanger->planMovements();
 
-    for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
-	{
-		(*it)->executeMovements();
-	}
+    for ( thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+    {
+        (*it).executeMovements();
+    }
 }
 
 /**
@@ -56,7 +58,7 @@ void Edge::runLanes()
  */
 bool Edge::addVehicle(Vehicle * vehicle, int lane)
 {
-    return true;
+    return lanes.back().addVehicle( vehicle, true );
 }
 
 /**
@@ -65,8 +67,10 @@ bool Edge::addVehicle(Vehicle * vehicle, int lane)
  */
 void Edge::removeVehicle(Vehicle * vehicle)
 {
-    return;
-    // TODO: implement this. THAD!
+    for (thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); ++it)
+    {
+        (*it).removeVehicle( vehicle );
+    }
 }
 
 /**
@@ -74,6 +78,5 @@ void Edge::removeVehicle(Vehicle * vehicle)
  */
 void Edge::addLane()
 {
-    return;
-    // TODO: Implement this also, THAD!
+    lanes.push_back( Lane( this ) );
 }
