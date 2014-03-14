@@ -17,9 +17,9 @@ Network::Network(int maxTime)
 	this->maxTime = maxTime;
     timeStep = 0;
     vehicleController = new VehicleControl();
-	edges = thrust::host_vector<Edge>();
-	junctions = thrust::host_vector<Junction>();
-	routes = thrust::host_vector<Route>();
+	edges = thrust::host_vector<Edge*>();
+	junctions = thrust::host_vector<Junction*>();
+	routes = thrust::host_vector<Route*>();
 }
 
 /**
@@ -37,8 +37,8 @@ Network::~Network()
  */
 Edge * Network::addEdge( float length, float maxSpeed, Junction *junction )
 {
-	edges.push_back( Edge( length, maxSpeed, junction ) );
-    return &edges.back();
+	edges.push_back( new Edge( length, maxSpeed, junction ) );
+    return edges.back();
 }
 
 /**
@@ -47,8 +47,8 @@ Edge * Network::addEdge( float length, float maxSpeed, Junction *junction )
  */
 Junction * Network::addJunction( Junction::Shape shape)
 {
-    junctions.push_back( Junction( shape ) );
-    return &junctions.back();
+    junctions.push_back( new Junction( shape ) );
+    return junctions.back();
 }
 
 /**
@@ -56,8 +56,8 @@ Junction * Network::addJunction( Junction::Shape shape)
  */
 Route * Network::addRoute()
 {
-    routes.push_back( Route() );
-    return &routes.back();
+    routes.push_back( new Route() );
+    return routes.back();
 }
 
 /**
@@ -72,14 +72,14 @@ void Network::runSimulation()
 
         vehicleController->refreshTimestep(timeStep);
 
-		for ( thrust::host_vector<Edge>::iterator it = edges.begin(); it != edges.end(); it++ )
+		for ( thrust::host_vector<Edge*>::iterator it = edges.begin(); it != edges.end(); it++ )
 		{
-			(*it).runLanes();
+			(*it)->runLanes();
 		}
 
-        for ( thrust::host_vector<Junction>::iterator it = junctions.begin(); it != junctions.end(); it++ )
+        for ( thrust::host_vector<Junction*>::iterator it = junctions.begin(); it != junctions.end(); it++ )
 		{
-			(*it).runTimestep();
+			(*it)->runTimestep();
 		}
 
         ++timeStep;

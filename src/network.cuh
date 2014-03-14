@@ -50,13 +50,13 @@ public:
     Route * addRoute();
     
     // edges : Pointer to array of edges
-    thrust::host_vector<Edge> edges;
+    thrust::host_vector<Edge*> edges;
     
     // junctions : Pointer to array of junctions
-    thrust::host_vector<Junction> junctions;
+    thrust::host_vector<Junction*> junctions;
 
     // routes : Pointer to array of routes
-    thrust::host_vector<Route> routes;
+    thrust::host_vector<Route*> routes;
 
     // timeStep : Integer representing the current timestep of the simulation.
     //            Measured in SECONDS
