@@ -22,7 +22,8 @@ Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 	this->route = route;
 	this->style = style;
 	this->depart = depart;
-    currSpeed = 0;
+	this->currEdge = route->begin();
+	currSpeed = 0;
     pos = 0;
     nextPos = 0;
 }

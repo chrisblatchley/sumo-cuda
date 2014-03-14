@@ -14,7 +14,7 @@ Constructor for Lane object
 @param uid		The name or unique identifier of this lane
 @param edge	A pointer to the edge to which this lane belongs
 */
-Lane::Lane(Edge* edge)
+Lane::Lane(Edge * edge)
 {
 	this->edge = edge;
 }
@@ -42,6 +42,12 @@ void Lane::planMovements()
 		( *it )->planMove( predecessor, distance ); //Call planMovements on the vehicle 
 	}
 }
+
+/**
+ * Destructor
+ */
+Lane::~Lane(void)
+{}
 
 /**
 Call the executeMove method for all vehicles belonging to this lane
@@ -104,11 +110,4 @@ void Lane::removeVehicle(Vehicle* vehicle)
 			break;
 		}
 	}
-}
-
-/**
-Destructor of Lane object
-*/
-Lane::~Lane(void)
-{
 }

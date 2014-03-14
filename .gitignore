@@ -38,3 +38,4 @@ src/sumo-cuda.sln
 src/sumo-cuda.sdf
 src/sumo-cuda.opensdf
 src/Debug/*
+src/vc110.pdb

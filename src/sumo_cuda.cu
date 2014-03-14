@@ -22,7 +22,7 @@ void printHelpString()
 
 void test()
 {
-    Network network(150);
+    Network network = Network(150);
     Junction * j1 = network.addJunction( Junction::AllStop );
     Edge *e1 = network.addEdge( 1000.00, 30.0, j1 );
     Route *r1 = network.addRoute();
