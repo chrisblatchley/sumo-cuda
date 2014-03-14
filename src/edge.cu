@@ -20,15 +20,17 @@ Edge::Edge(float length, float maxSpeed, Junction *junction)
     this->length = length;
     this->maxSpeed = maxSpeed;
     this->junction = junction;
+	this->laneChanger = new LaneChanger( &this->lanes );
     // Minimum lanes in an edge is 1.
-    lanes.push_back( Lane( this ) );
+	this->addLane();
 }
 
 /**
  * Destructor
  */
-Edge::~Edge()
-{}
+Edge::~Edge(void)
+{
+}
 
 /**
  * runLanes
@@ -42,7 +44,7 @@ void Edge::runLanes()
         (*it).planMovements();
     }
 
-    laneChanger->planMovements();
+    //laneChanger->planMovements();
 
     for ( thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); it++ )
     {

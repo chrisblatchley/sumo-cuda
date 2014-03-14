@@ -24,15 +24,21 @@ LaneChanger::LaneChanger(thrust::host_vector<Lane>* lanes)
 void LaneChanger::planMovements()
 {
 	//Loop through all aggresively changing vehicles
-	for ( thrust::host_vector<Vehicle*>::iterator it = accelerateList.begin(); it != accelerateList.end(); it++ )
+	if(!accelerateList.empty())
 	{
-		//Check for available space in the higher priority lane
+		for ( thrust::host_vector<Vehicle*>::iterator it = accelerateList.begin(); it != accelerateList.end(); it++ )
+		{
+			//Check for available space in the higher priority lane
+		}
 	}
 
 	//Loop through all defensively changing vehicles
-	for ( thrust::host_vector<Vehicle*>::iterator it = decelerateList.begin(); it != decelerateList.end(); it++ )
+	if(!decelerateList.empty())
 	{
-		//Check for available space in the lower priority lane
+		for ( thrust::host_vector<Vehicle*>::iterator it = decelerateList.begin(); it != decelerateList.end(); it++ )
+		{
+			//Check for available space in the lower priority lane
+		}
 	}
 }
 

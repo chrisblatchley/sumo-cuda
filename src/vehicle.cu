@@ -22,6 +22,7 @@ Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 	this->route = route;
 	this->style = style;
 	this->depart = depart;
+	this->currEdge = route->begin();
 }
 
 Vehicle::~Vehicle()
@@ -36,7 +37,6 @@ Vehicle::~Vehicle()
 void Vehicle::enterLane(Lane *lane)
 {
     pos = 0;
-    currEdge = lane->edge;
 }
 
 /**
@@ -58,7 +58,7 @@ void Vehicle::planMove(Vehicle* pred, float distance)
     bool canStopNow = currSpeed <= ACCEL_FACTOR;
     bool wantsToAccel = currSpeed < style.speed;
 
-    if( approachingStop && !canStopNow or approachingPred)
+    if( approachingStop && !canStopNow || approachingPred)
     {
         if(predIsSlower)
             accelFactor = pred->currSpeed - currSpeed;

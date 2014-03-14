@@ -17,6 +17,9 @@ Network::Network(int maxTime)
 	this->maxTime = maxTime;
     timeStep = 0;
     vehicleController = new VehicleControl();
+	edges = thrust::host_vector<Edge>();
+	junctions = thrust::host_vector<Junction>();
+	routes = thrust::host_vector<Route>();
 }
 
 /**
@@ -34,7 +37,7 @@ Network::~Network()
  */
 Edge * Network::addEdge( float length, float maxSpeed, Junction *junction )
 {
-    edges.push_back( Edge( length, maxSpeed, junction ) );
+	edges.push_back( Edge( length, maxSpeed, junction ) );
     return &edges.back();
 }
 

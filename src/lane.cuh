@@ -57,7 +57,7 @@ class Lane
 		 */
 
 		//Parent edge reference
-		Edge* edge;
+		Edge * edge;
 
 		//Our vehicle list
 		thrust::host_vector<Vehicle*> vehicles;
