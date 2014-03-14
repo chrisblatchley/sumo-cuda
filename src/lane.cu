@@ -65,7 +65,8 @@ bool Lane::addVehicle(Vehicle* vehicle, bool beginning = false)
 	if ( beginning == true )
 	{
 		//We are at the start of the lane, so we'll just push the vehicle to the beginning of the vector
-		vehicles.push_back(vehicle);
+		vehicles.push_back( vehicle );
+		vehicle->enterLane( this );
 		return true;
 	}else{
 		//Find the correct location within the vehicle vector to place us

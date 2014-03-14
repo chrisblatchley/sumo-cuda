@@ -22,6 +22,9 @@ Vehicle::Vehicle( Route* route, Vehicle::Style style, int depart )
 	this->route = route;
 	this->style = style;
 	this->depart = depart;
+    currSpeed = 0;
+    pos = 0;
+    nextPos = 0;
 }
 
 Vehicle::~Vehicle()
@@ -36,6 +39,7 @@ Vehicle::~Vehicle()
 void Vehicle::enterLane(Lane *lane)
 {
     pos = 0;
+    nextPos = 0;
     currEdge = lane->edge;
 }
 
@@ -46,7 +50,7 @@ void Vehicle::enterLane(Lane *lane)
  */
 void Vehicle::planMove(Vehicle* pred, float distance)
 {
-    float accelFactor = CRUISE_ACCEL;
+    float accelFactor = ACCEL_FACTOR;
     float distanceToStop = currEdge->length - pos;
     float timeToStop = currSpeed / ACCEL_FACTOR;
     float stoppingDistance = timeToStop * (timeToStop + 1) * currSpeed / 2.0;
@@ -58,7 +62,7 @@ void Vehicle::planMove(Vehicle* pred, float distance)
     bool canStopNow = currSpeed <= ACCEL_FACTOR;
     bool wantsToAccel = currSpeed < style.speed;
 
-    if( approachingStop && !canStopNow or approachingPred)
+    if( approachingStop && !canStopNow || approachingPred)
     {
         if(predIsSlower)
             accelFactor = pred->currSpeed - currSpeed;
@@ -70,8 +74,7 @@ void Vehicle::planMove(Vehicle* pred, float distance)
         accelFactor = ACCEL_FACTOR;
     }
 
-    // currSpeed = currSpeed + accelFactor;
-    currSpeed = currSpeed + ACCEL_FACTOR;
+    currSpeed = currSpeed + accelFactor;
     nextPos = pos + currSpeed;
 }
 

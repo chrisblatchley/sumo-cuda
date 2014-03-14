@@ -58,7 +58,8 @@ void Edge::runLanes()
  */
 bool Edge::addVehicle(Vehicle * vehicle, int lane)
 {
-    return lanes.back().addVehicle( vehicle, true );
+    // TODO: This is a bug. lanes.front will always give the slowest lane.
+    return lanes.front().addVehicle( vehicle, true );
 }
 
 /**

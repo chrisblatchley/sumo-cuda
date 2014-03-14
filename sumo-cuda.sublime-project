@@ -18,20 +18,20 @@
     ],
     "settings":
     {
+        "sublimegdb_workingdir": "${folder:${project_path:sumo-cuda}}",
+        "sublimegdb_commandline": "gdb --interpreter=mi ./sumo-cuda",
     },
     "build_systems":
     [
         {
-            "name": "SUMO-CUDA Tests",
-            "cmd": ["python3", "-u", "$project_path/src/sumo_cuda.py", "tests"],
-            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "selector": "source.python"
-        },
-        {
-            "name": "SUMO-CUDA Main",
-            "cmd": ["python3", "-u", "$project_path/src/sumo_cuda.py"],
-            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "selector": "source.python"
+            "name": "SUMO-CUDA",
+            "cmd": ["make", "-C", "${project_path}/src"],
+            "line_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "variants": [
+            {
+                "name": "Run",
+                "cmd": "${project_path}/src/sumo-cuda"
+            }],
         }
     ]
 }

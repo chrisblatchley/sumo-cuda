@@ -33,12 +33,14 @@ VehicleControl::~VehicleControl()
 bool VehicleControl::addVehicle(Vehicle vehicle)
 {
     Edge *edge = vehicle.route->begin();
+    vehicles.push_back(vehicle);
+    Vehicle newVeh = vehicles.back();
 	//STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
-    if( edge->addVehicle( &vehicle, 0 ) )
+    if( edge->addVehicle( &newVeh, 0 ) )
     {
-        vehicles.push_back(vehicle);
         return true;
     }
+    vehicles.pop_back();
     return false;
 }
 
@@ -78,44 +80,7 @@ void VehicleControl::deleteVehicle(Vehicle *vehicle)
  */
 void VehicleControl::refreshTimestep(int timeStep)
 {
-
     readyToAdd pred(timeStep, this);
     waiting.erase( thrust::remove_if( waiting.begin(), waiting.end(), pred ), waiting.end() );
     vehicles.erase( thrust::remove_if( vehicles.begin(), vehicles.end(), readyToRemove() ), vehicles.end() );
-
-    // // Add ready vehicles from the waiting list
-    // for (thrust::host_vector<Vehicle>::iterator it = waiting.begin(); it != waiting.end(); ++it)
-    // {
-    //     if( timeStep >= (*it).depart && addVehicle( (*it) ) )
-    //     {
-    //         if ( it == waiting.back())
-    //         {
-    //             waiting.pop_back();
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             it = waiting.erase(it);
-    //         }
-    //     }
-    // }
-
-
-    // // Remove vehicles from the running list
-    // for (thrust::host_vector<Vehicle>::iterator it = vehicles.begin(); it != vehicles.end(); ++it)
-    // {
-    //     if( (*it).currEdge == (*it).route->end() && (*it).pos >= (*it).route->end()->length )
-    //     {
-    //         // it = vehicles.erase(it);
-    //         if ( it == vehicles.back())
-    //         {
-    //             vehicles.pop_back();
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             it = vehicles.erase(it);
-    //         }
-    //     }
-    // }
 }
