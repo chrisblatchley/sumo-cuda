@@ -42,7 +42,7 @@ public:
      * @param vehicle   Vehicle to add
      * @return  boolean whether vehicle was successfully added to route
      */
-    bool addVehicle(Vehicle vehicle);
+    bool addVehicle(Vehicle *vehicle);
 
 private:
 
@@ -53,10 +53,10 @@ private:
     void deleteVehicle(Vehicle *vehicle);
     
     // vehicles : Thrust vector of Vehicle pointers
-    thrust::host_vector<Vehicle> vehicles;
+    thrust::host_vector<Vehicle *> vehicles;
 
     // waiting : Thrust vector
-    thrust::host_vector<Vehicle> waiting;
+    thrust::host_vector<Vehicle *> waiting;
 
     int endedVehicles;
 
@@ -78,9 +78,9 @@ public:
         timeStep = time;
         vc = v;
     }
-    __host__ __device__ bool operator()(const Vehicle v)
+    __host__ __device__ bool operator()( Vehicle *v )
     {
-        return ( timeStep >= v.depart && vc->addVehicle( v ) );
+        return ( timeStep >= v->depart && vc->addVehicle( v ) );
     };
 };
 
@@ -89,8 +89,8 @@ public:
  * Functor for removing a completed vehicle from active queue
  */
 struct readyToRemove {
-    __host__ __device__ bool operator()(const Vehicle v)
+    __host__ __device__ bool operator()( Vehicle *v )
     {
-        return ( v.currEdge == v.route->end() && v.pos >= v.route->end()->length );
+        return ( v->currEdge == v->route->end() && v->pos >= v->route->end()->length );
     };
 };

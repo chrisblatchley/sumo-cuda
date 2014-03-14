@@ -30,17 +30,15 @@ VehicleControl::~VehicleControl()
  * @param vehicle   Pointer to vehicle to add
  * @return  boolean whether vehicle was successfully added to route
  */
-bool VehicleControl::addVehicle(Vehicle vehicle)
+bool VehicleControl::addVehicle(Vehicle *vehicle)
 {
-    Edge *edge = vehicle.route->begin();
-    vehicles.push_back(vehicle);
-    Vehicle newVeh = vehicles.back();
-	//STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
-    if( edge->addVehicle( &newVeh, 0 ) )
+    Edge *edge = vehicle->route->begin();
+    //STATICALLY ADDING VEHICLE TO LANE 0, CHANGE ME LATER. I AM BAD FORM.
+    if( edge->addVehicle( vehicle, 0 ) )
     {
+        vehicles.push_back(vehicle);
         return true;
     }
-    vehicles.pop_back();
     return false;
 }
 
@@ -52,7 +50,8 @@ bool VehicleControl::addVehicle(Vehicle vehicle)
  */
 void VehicleControl::queueVehicle(Route *r, Vehicle::Style style, int depart)
 {
-    waiting.push_back( Vehicle(r, style, depart) );
+    Vehicle *newVehicle = new Vehicle(r, style, depart);
+    waiting.push_back( newVehicle );
 }
 
 /**
@@ -80,6 +79,7 @@ void VehicleControl::deleteVehicle(Vehicle *vehicle)
  */
 void VehicleControl::refreshTimestep(int timeStep)
 {
+    // TODO: Pointer will be invalid when run on CUDA
     readyToAdd pred(timeStep, this);
     waiting.erase( thrust::remove_if( waiting.begin(), waiting.end(), pred ), waiting.end() );
     vehicles.erase( thrust::remove_if( vehicles.begin(), vehicles.end(), readyToRemove() ), vehicles.end() );
