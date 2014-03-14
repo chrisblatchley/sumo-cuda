@@ -89,8 +89,14 @@ public:
  * Functor for removing a completed vehicle from active queue
  */
 struct readyToRemove {
+public:
     __host__ __device__ bool operator()( Vehicle *v )
     {
-        return ( v->currEdge == v->route->end() && v->pos >= v->route->end()->length );
+		bool readyToRemove = ( v->currEdge == v->route->end() && v->pos >= v->route->end()->length );
+		if(readyToRemove)
+		{
+			v->currEdge->removeVehicle(v);
+		}
+        return readyToRemove;
     };
 };
