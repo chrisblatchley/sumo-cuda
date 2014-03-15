@@ -6,8 +6,8 @@
  * Main entry point for sumo-cuda
  */
 #include <cstdio>
-#include <hash_map>
 #include <string>
+#include <map>
 #include <stdlib.h>
 #include <sstream>
 #include "network.cuh"
@@ -77,7 +77,7 @@ void runFile(const char * cfgFile)
 	tinyxml2::XMLNode * netNode = netDoc.FirstChildElement();
 
 	//Create a junction map so we can set up the network via the proper ids
-	std::hash_map<std::string, Junction*> junctionMap;
+	std::map<std::string, Junction*> junctionMap;
 	//Loop through and create all the junction objects
 	for(tinyxml2::XMLElement * j = netNode->FirstChildElement("junction"); j != NULL; j = j->NextSiblingElement("junction"))
 	{
@@ -97,7 +97,7 @@ void runFile(const char * cfgFile)
 	}
 
 	//Create our edge map so we can find edges by id for setup
-	std::hash_map<std::string, Edge*> edgeMap;
+	std::map<std::string, Edge*> edgeMap;
 	//Loop through all the edge nodes
 	for(tinyxml2::XMLElement * e = netNode->FirstChildElement("edge"); e != NULL; e = e->NextSiblingElement("edge"))
 	{
@@ -129,7 +129,7 @@ void runFile(const char * cfgFile)
 	tinyxml2::XMLNode * routeNode = routeDoc.FirstChildElement();
 
 	//Create a map so we can find routes by ids for setup
-	std::hash_map<std::string, Route*> routeMap;
+	std::map<std::string, Route*> routeMap;
 	//First, create all our routes within the network
 	for(tinyxml2::XMLElement * r = routeNode->FirstChildElement("route"); r != NULL; r = r->NextSiblingElement("route"))
 	{
@@ -145,7 +145,7 @@ void runFile(const char * cfgFile)
 	}
 
 	//Create a map of vehicle styles to be used in vehicle queueing
-	std::hash_map<std::string, Vehicle::Style> styleMap;
+	std::map<std::string, Vehicle::Style> styleMap;
 	//Loop through all the vehicle styles
 	for(tinyxml2::XMLElement * s = routeNode->FirstChildElement("vType"); s != NULL; s = s->NextSiblingElement("vType"))
 	{

@@ -24,7 +24,7 @@ LFLAGS =
 LIBS =
 
 # define the C source files
-SRCS = edge.cu junction.cu lane.cu lane_changer.cu network.cu route.cu sumo_cuda.cu vehicle.cu vehicle_control.cu
+SRCS = edge.cu junction.cu lane.cu lane_changer.cu network.cu route.cu sumo_cuda.cu vehicle.cu vehicle_control.cu tinyxml2.cpp
 
 # define the C object files 
 #
