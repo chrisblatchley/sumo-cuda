@@ -21,7 +21,7 @@ class Network
 public:
     
     // Class constructor and destructor
-    Network( int maxTime );
+    Network( int timeStep, int maxTime );
     ~Network();
 
     /**

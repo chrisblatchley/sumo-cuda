@@ -13,7 +13,7 @@
  * Lane changer constructor
  * @param lanes	A pointer to the lanes vector from the parent edge
  */
-LaneChanger::LaneChanger(thrust::host_vector<Lane>* lanes)
+LaneChanger::LaneChanger(thrust::host_vector<Lane*>* lanes)
 {
 	LaneChanger::lanes = lanes;
 }

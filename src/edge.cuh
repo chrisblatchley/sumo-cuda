@@ -70,7 +70,7 @@ public:
     Junction * junction;
 
     // lanes : Thrust vector of lanes
-    thrust::host_vector<Lane>lanes;
+    thrust::host_vector<Lane*>lanes;
 
     // laneChanger : Pointer to Lane Changer Object
     LaneChanger * laneChanger;

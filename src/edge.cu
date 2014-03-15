@@ -39,16 +39,16 @@ Edge::~Edge(void)
 void Edge::runLanes()
 {
 
-    for ( thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+    for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
     {
-        (*it).planMovements();
+        (*it)->planMovements();
     }
 
     //laneChanger->planMovements();
 
-    for ( thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); it++ )
+    for ( thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); it++ )
     {
-        (*it).executeMovements();
+        (*it)->executeMovements();
     }
 }
 
@@ -61,7 +61,7 @@ void Edge::runLanes()
 bool Edge::addVehicle(Vehicle * vehicle, int lane)
 {
     // TODO: This is a bug. lanes.front will always give the slowest lane.
-    return lanes.front().addVehicle( vehicle, true );
+    return lanes.front()->addVehicle( vehicle, true );
 }
 
 /**
@@ -70,9 +70,9 @@ bool Edge::addVehicle(Vehicle * vehicle, int lane)
  */
 void Edge::removeVehicle(Vehicle * vehicle)
 {
-    for (thrust::host_vector<Lane>::iterator it = lanes.begin(); it != lanes.end(); ++it)
+    for (thrust::host_vector<Lane*>::iterator it = lanes.begin(); it != lanes.end(); ++it)
     {
-        (*it).removeVehicle( vehicle );
+        (*it)->removeVehicle( vehicle );
     }
 }
 
@@ -81,5 +81,5 @@ void Edge::removeVehicle(Vehicle * vehicle)
  */
 void Edge::addLane()
 {
-    lanes.push_back( Lane( this ) );
+    lanes.push_back( new Lane( this ) );
 }

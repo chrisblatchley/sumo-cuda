@@ -12,10 +12,10 @@
 /**
  * Network Object Constructor
  */
-Network::Network(int maxTime)
+Network::Network(int timeStep, int maxTime)
 {
 	this->maxTime = maxTime;
-    timeStep = 0;
+    this->timeStep = timeStep;
     vehicleController = new VehicleControl();
 	edges = thrust::host_vector<Edge*>();
 	junctions = thrust::host_vector<Junction*>();

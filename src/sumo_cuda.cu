@@ -45,7 +45,7 @@ void printHelpString()
 
 void test()
 {
-    Network network = Network(150);
+    Network network = Network(0,150);
     Junction * j1 = network.addJunction( Junction::AllStop );
     Edge *e1 = network.addEdge( 1000.00, 30.0, j1 );
     Route *r1 = network.addRoute();
@@ -55,16 +55,26 @@ void test()
     network.runSimulation();
 }
 
-void runFile(const char * netFile, const char * routeFile, int timeSteps)
+void runFile(const char * cfgFile)
 {
+	tinyxml2::XMLDocument cfgDoc;
+	cfgDoc.LoadFile(cfgFile);
+
+	//Get the cfg node
+	tinyxml2::XMLNode * cfgNode = cfgDoc.FirstChildElement();
+
+	const char * netFile = cfgNode->FirstChildElement("input")->FirstChildElement("net-file")->Attribute("value");
+	const char * routeFile = cfgNode->FirstChildElement("input")->FirstChildElement("route-files")->Attribute("value");
+	int startTime = strtol(cfgNode->FirstChildElement("time")->FirstChildElement("begin")->Attribute("value"), NULL, 10);
+	int endTime = strtol(cfgNode->FirstChildElement("time")->FirstChildElement("end")->Attribute("value"), NULL, 10);
+	//Define the network object. "You are an amazing object, Network, good to have you!"
+	Network network = Network(startTime, endTime);
+
 	tinyxml2::XMLDocument netDoc;
 	netDoc.LoadFile(netFile);
 
-	//Define the network object. "You are an amazing object, Network, good to have you!"
-	Network network = Network(timeSteps);
-
 	//Get the "net" node
-	tinyxml2::XMLNode * netNode = netDoc.FirstChild();
+	tinyxml2::XMLNode * netNode = netDoc.FirstChildElement();
 
 	//Create a junction map so we can set up the network via the proper ids
 	std::hash_map<std::string, Junction*> junctionMap;
@@ -92,7 +102,12 @@ void runFile(const char * netFile, const char * routeFile, int timeSteps)
 	for(tinyxml2::XMLElement * e = netNode->FirstChildElement("edge"); e != NULL; e = e->NextSiblingElement("edge"))
 	{
 		//Create the edge node with the appropriate values and junction ending
-		Edge * edge = network.addEdge(std::strtod(e->Attribute("length"), NULL ), std::strtod(e->Attribute("speed"), NULL), junctionMap[e->Attribute("to")]);
+		if(e->Attribute("to") == NULL)
+		{
+			//This is an internal edge, skip it.
+			continue;
+		}
+		Edge * edge = network.addEdge(e->FirstChildElement()->FloatAttribute("length"), e->FirstChildElement()->FloatAttribute("speed"), junctionMap[e->Attribute("to")]);
 
 		for(tinyxml2::XMLElement * l = e->FirstChildElement("lane"); l != NULL; l = l->NextSiblingElement("lane"))
 		{
@@ -111,7 +126,7 @@ void runFile(const char * netFile, const char * routeFile, int timeSteps)
 	routeDoc.LoadFile(routeFile);
 
 	//Get the "net" node
-	tinyxml2::XMLNode * routeNode = routeDoc.FirstChild();
+	tinyxml2::XMLNode * routeNode = routeDoc.FirstChildElement();
 
 	//Create a map so we can find routes by ids for setup
 	std::hash_map<std::string, Route*> routeMap;
@@ -140,7 +155,7 @@ void runFile(const char * netFile, const char * routeFile, int timeSteps)
 
 	for(tinyxml2::XMLElement * v = routeNode->FirstChildElement("vehicle"); v != NULL; v = v->NextSiblingElement("vehicle"))
 	{
-		(network.vehicleController)->queueVehicle(routeMap[v->Attribute("route")], styleMap[v->Attribute("type")], strtol(v->Attribute("depart"), NULL, 10));
+		(network.vehicleController)->queueVehicle(routeMap[v->Attribute("route")], styleMap[v->Attribute("type")], v->IntAttribute("depart"));
 	}
 
 	network.runSimulation();
@@ -149,12 +164,9 @@ void runFile(const char * netFile, const char * routeFile, int timeSteps)
 
 int main(int argc, char const *argv[])
 {
-	if(argc == 4)
+	if(argc == 2)
 	{
-		//Assume the first argument is the filename, the second is the number of timesteps
-		long longTime = strtol(argv[3], NULL, 10);
-		int timeSteps = longTime;
-		runFile(argv[1], argv[2], timeSteps);
+		runFile(argv[1]);
 	}else{
 		test();
 	}

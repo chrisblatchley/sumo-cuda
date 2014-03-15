@@ -19,7 +19,7 @@ public:
 	 * Lane changer constructor
 	 * @param lanes	A pointer to the lanes vector from the parent edge
 	 */
-	LaneChanger(thrust::host_vector<Lane>* lanes);
+	LaneChanger(thrust::host_vector<Lane*>* lanes);
 
 	/**
 	 * Plan lane changes on this particular edge
@@ -50,5 +50,5 @@ public:
 	thrust::host_vector<Vehicle*> decelerateList;
 
 	//Pointer to the parent edge's lanes vector
-	thrust::host_vector<Lane> * lanes;
+	thrust::host_vector<Lane*> * lanes;
 };
