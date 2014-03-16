@@ -86,4 +86,11 @@ void Vehicle::executeMove()
 {
     printf("\t%4p: %.2f\n", this, pos);
     pos = nextPos;
+
+    //Check if we are done with this edge
+    if(pos >= currEdge->length)
+    {
+        currEdge->junction->queueVehicle(this);
+        currEdge->removeVehicle(this);
+    }
 }
