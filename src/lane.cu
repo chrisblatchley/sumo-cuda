@@ -25,22 +25,63 @@ Call the planMove method for all vehicles belonging to this lane
 void Lane::planMovements()
 {
 	//Pointer used for passing the vehicle ahead
-	Vehicle* predecessor = NULL;
-	//The clear distance in front of a vehicle
-	float distance;
-	for ( thrust::host_vector<Vehicle*>::iterator it = vehicles.begin(); it != vehicles.end(); it++ )
+	
+	thrust::host_vector<Vehicle> copy_vehicles;
+
+	thrust::host_vector<Vehicle*>::iterator vit = vehicles.begin();
+
+	while(vit != vehicles.end())
 	{
-		if( predecessor == NULL )
-		{
-			//We don't have anyone in front of us, pass the distance to the end of the edge.
-			distance = edge->length - ( *it )->pos;
-		}else{
-			//We have a car in front of us, get the distance between us.
-			distance = predecessor->pos - ( *it )->pos;
-		}
-		//Pass the information along to the car to plan
-		( *it )->planMove( predecessor, distance ); //Call planMovements on the vehicle 
+		Vehicle copy = **vit;
+		copy_vehicles.push_back(copy);
+		++vit;
 	}
+
+	thrust::device_vector<Vehicle> d_vehicles;
+	d_vehicles = copy_vehicles;
+
+	thrust::device_vector<Vehicle> d_predecessors(vehicles.size());
+
+	Vehicle::Style dummyStyle = {0.0, 999999.00};
+	Vehicle dummyPred(NULL, dummyStyle, 0);
+	dummyPred.currSpeed = 999999.00;
+
+	d_predecessors[0] = dummyPred; //First in lane is null
+
+	thrust::copy(d_vehicles.begin(), d_vehicles.end(), d_predecessors.begin()++);
+
+	planMoveFunctor planMove(edge->length);
+	thrust::transform( d_predecessors.begin(), d_predecessors.end(), d_vehicles.begin(), d_vehicles.begin(), planMove );
+	
+	copy_vehicles = d_vehicles;
+
+	// Reset the simulation vehicles with results from CUDA transformation.
+	vit = vehicles.begin();
+	thrust::host_vector<Vehicle>::iterator lvit = copy_vehicles.begin();
+
+	while(vit != vehicles.end())
+	{
+		(*vit)->nextPos = (*lvit).nextPos;
+		(*vit)->currSpeed = (*lvit).currSpeed;
+		++vit;
+		++lvit;
+	}
+
+	// //The clear distance in front of a vehicle
+	// float distance;
+	// for ( thrust::host_vector<Vehicle*>::iterator it = vehicles.begin(); it != vehicles.end(); it++ )
+	// {
+	// 	if( predecessor == NULL )
+	// 	{
+	// 		//We don't have anyone in front of us, pass the distance to the end of the edge.
+	// 		distance = edge->length - ( *it )->pos;
+	// 	}else{
+	// 		//We have a car in front of us, get the distance between us.
+	// 		distance = predecessor->pos - ( *it )->pos;
+	// 	}
+	// 	//Pass the information along to the car to plan
+	// 	( *it )->planMove( predecessor, distance ); //Call planMovements on the vehicle 
+	// }
 }
 
 /**

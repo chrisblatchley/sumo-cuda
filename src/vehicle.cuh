@@ -37,9 +37,10 @@ class Vehicle
 		/**
 		 * Class Constructor and Destructor
 		 */
-		Vehicle(Route *r, Vehicle::Style style, int depart);
+		__host__ __device__ Vehicle();
+		__host__ __device__ Vehicle(Route *r, Vehicle::Style style, int depart);
 
-		~Vehicle();
+		__host__ __device__ ~Vehicle();
 
 		/**
 		 * Logic to occur when the vehicle enters a new lane
@@ -84,4 +85,48 @@ class Vehicle
 
 		// depart : A timestep for when the vehicle is supposed to depart.
 		int depart;
+};
+
+class planMoveFunctor
+{
+public:
+    const float edgeLength;
+    planMoveFunctor(float egdeLength) : edgeLength(edgeLength) {}
+
+    __host__ __device__
+    Vehicle operator()(Vehicle pred, Vehicle vehicle)
+    {
+        const float ACCEL_FACTOR = 5.0;
+        const float CRUISE_ACCEL = 0.0;
+        const int MIN_CAR_LENGTHS_IN_FRONT = 2;
+
+        float accelFactor = ACCEL_FACTOR;
+        float distanceToStop = edgeLength - vehicle.pos;
+        float timeToStop = vehicle.currSpeed / accelFactor;
+        float stoppingDistance = timeToStop * (timeToStop + 1) * vehicle.currSpeed / 2.0;
+
+        bool approachingStop = distanceToStop < stoppingDistance;
+        bool approachingPred = pred.currSpeed <= vehicle.currSpeed;
+        bool predIsSlower = pred.style.speed < vehicle.style.speed;
+        bool withinCarBuffer = (distanceToStop <= vehicle.style.length * MIN_CAR_LENGTHS_IN_FRONT);
+        bool canStopNow = vehicle.currSpeed <= accelFactor;
+        bool wantsToAccel = vehicle.currSpeed < vehicle.style.speed;
+
+        if( approachingStop && !canStopNow || approachingPred)
+        {
+            if(predIsSlower)
+                accelFactor = pred.currSpeed - vehicle.currSpeed;
+            else
+                accelFactor = -1 * ACCEL_FACTOR;
+        }
+        else if( wantsToAccel && !approachingStop)
+        {
+            accelFactor = ACCEL_FACTOR;
+        }
+
+        vehicle.currSpeed = vehicle.currSpeed + accelFactor;
+        vehicle.nextPos = vehicle.pos + vehicle.currSpeed;
+
+        return vehicle;
+    }
 };
