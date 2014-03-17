@@ -8,10 +8,6 @@
 #pragma once
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
-#include <thrust/remove.h>
-#include <thrust/device_ptr.h> 
-#include <thrust/device_malloc.h> 
-#include <thrust/device_free.h> 
 #include "vehicle.cuh"
 #include "edge.cuh"
 #include "route.cuh"
@@ -57,10 +53,10 @@ private:
     void deleteVehicle(Vehicle *vehicle);
     
     // vehicles : Thrust vector of Vehicle pointers
-    thrust::device_vector<thrust::device_ptr<Vehicle>> vehicles;
+    thrust::host_vector<Vehicle *> vehicles;
 
     // waiting : Thrust vector
-    thrust::device_vector<device_ptr<Vehicle>> waiting;
+    thrust::host_vector<Vehicle *> waiting;
 
     int endedVehicles;
 

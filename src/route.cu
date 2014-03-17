@@ -29,6 +29,7 @@ Edge* Route::getNextEdge( Edge* edge )
 			return *it++;
 		}
 	}
+	return NULL;
 	//TODO OTHERWISE WERE TOTALLY SCREWED
 }
 

@@ -41,3 +41,6 @@ src/Debug/*
 src/vc110.pdb
 src/sumo-cuda.vcxproj.user
 src/sftp-config.json
+src/notes
+src/sumo-cuda.psess
+src/sumo-cuda140316.vspx

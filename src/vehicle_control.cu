@@ -7,6 +7,7 @@
  */
 // #pragma once
 #include "vehicle_control.cuh"
+#include <thrust/remove.h>
 
 /**
  * Class Constructor and Destructor
@@ -49,7 +50,7 @@ bool VehicleControl::addVehicle(Vehicle *vehicle)
  */
 void VehicleControl::queueVehicle(Route *r, Vehicle::Style style, int depart)
 {
-    thrust::device_ptr<Vehicle> newVehicle = thrust::device_new<Vehicle>();
+    Vehicle *newVehicle = new Vehicle(r, style, depart);
     waiting.push_back( newVehicle );
 }
 
