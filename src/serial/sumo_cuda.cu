@@ -10,6 +10,7 @@
 #include <map>
 #include <stdlib.h>
 #include <sstream>
+#include <time.h>
 #include "network.cuh"
 #include "junction.cuh"
 #include "edge.cuh"
@@ -53,6 +54,19 @@ void test()
     Vehicle::Style style = {5.0, 30.0};
     (network.vehicleController)->queueVehicle(r1, style, 5);
     network.runSimulation();
+}
+
+timespec diff(timespec start, timespec end)
+{
+	timespec temp;
+	if ((end.tv_nsec-start.tv_nsec)<0) {
+		temp.tv_sec = end.tv_sec-start.tv_sec-1;
+		temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
+	} else {
+		temp.tv_sec = end.tv_sec-start.tv_sec;
+		temp.tv_nsec = end.tv_nsec-start.tv_nsec;
+	}
+	return temp;
 }
 
 void runFile(const char * cfgFile)
@@ -158,8 +172,15 @@ void runFile(const char * cfgFile)
 		(network.vehicleController)->queueVehicle(routeMap[v->Attribute("route")], styleMap[v->Attribute("type")], v->IntAttribute("depart"));
 	}
 
-	network.runSimulation();
-	
+	timespec time1, time2;
+
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);
+
+    //Run simulation
+    network.runSimulation();
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
+	std::cout << diff(time1,time2).tv_sec << ":" << diff(time1,time2).tv_nsec << std::endl;
 }
 
 int main(int argc, char const *argv[])
@@ -172,6 +193,7 @@ int main(int argc, char const *argv[])
 	}
     return 0;
 }
+
 
 
 
