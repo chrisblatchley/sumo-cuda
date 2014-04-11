@@ -3,11 +3,11 @@
 case $1 in
     -s) ;&
     --serial)
-        shift $(( OPTIND - 1));
+        shift $(( OPTIND ));
         ./sumo-cuda-serial $@;;
     -p) ;&
     --parallel)
-        shift $(( OPTIND -1));
+        shift $(( OPTIND ));
         ./sumo-cuda-parallel $@;;
     ?) echo "Error: insufficient arguments"; exit;;
 esac
