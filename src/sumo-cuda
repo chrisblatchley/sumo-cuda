@@ -1,0 +1,14 @@
+#!/bin/bash
+
+case $1 in
+    -s) ;&
+    --serial)
+        shift $(( OPTIND - 1));
+        ./sumo-cuda-serial $@;;
+    -p) ;&
+    --parallel)
+        shift $(( OPTIND -1));
+        ./sumo-cuda-parallel $@;;
+    ?) echo "Error: insufficient arguments"; exit;;
+esac
+
