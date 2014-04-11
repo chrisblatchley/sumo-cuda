@@ -54,17 +54,17 @@ void test()
     Vehicle::Style style = {5.0, 30.0};
     (network.vehicleController)->queueVehicle(r1, style, 5);
 
-    time_t start,end;
+    //time_t start,end;
     //Calculate start time according to wall clock
-    time (&start);
+    //time (&start);
 
     //Run simulation
     network.runSimulation();
 
     //Calculate end time, then calculate total time
-    time (&end);
-  	double dif = difftime (end,start);
-  	printf("Time to Simulate: %.2f\n", dif);
+    //time (&end);
+  	//double dif = difftime (end,start);
+  	//printf("Time to Simulate: %.2f\n", dif);
 }
 
 void runFile(const char * cfgFile)
