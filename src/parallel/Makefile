@@ -7,7 +7,7 @@
 CXX = nvcc
 
 # define any compile-time flags
-CXXFLAGS = -g
+CXXFLAGS = -g -arch=sm_20 -rdc=true
 
 # define any directories containing header files other than /usr/include
 #
