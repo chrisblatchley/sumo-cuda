@@ -46,14 +46,31 @@ void printHelpString()
 
 void test()
 {
-    Network network = Network(0,150);
+	//Output network file info JSON
+	std::cout << "\"input_file\":null,";
+
+	//Set test's symbolic timestep variables
+	int startTime = 0;
+	int endTime = 150;
+
+	//Initialize network
+    Network network = Network(startTime,endTime);
+
+    //Output start and end time info JSON
+	std::cout << "\"start_time\":" << startTime << ",";
+	std::cout << "\"end_time\":" << endTime << ",";
+
     Junction * j1 = network.addJunction( Junction::AllStop );
     Edge *e1 = network.addEdge( 1000.00, 30.0, j1 );
     Route *r1 = network.addRoute();
     r1->addEdge(e1);
     Vehicle::Style style = {5.0, 30.0};
     (network.vehicleController)->queueVehicle(r1, style, 5);
+
+    //Run network simulation inside JSON output array
+    std::cout << "\"steps\": [";
     network.runSimulation();
+    std::cout << "]";
 }
 
 timespec diff(timespec start, timespec end)
@@ -74,13 +91,27 @@ void runFile(const char * cfgFile)
 	tinyxml2::XMLDocument cfgDoc;
 	cfgDoc.LoadFile(cfgFile);
 
+	//Output network file info JSON
+	std::cout << "\"input_file\":\"" << cfgFile << "\",";
+
 	//Get the cfg node
 	tinyxml2::XMLNode * cfgNode = cfgDoc.FirstChildElement();
 
+	//Get supporting configuration files
 	const char * netFile = cfgNode->FirstChildElement("input")->FirstChildElement("net-file")->Attribute("value");
 	const char * routeFile = cfgNode->FirstChildElement("input")->FirstChildElement("route-files")->Attribute("value");
+
+	//Output supporting configuration files info JSON
+	std::cout << "\"network_file\":\"" << netFile << "\",";
+	std::cout << "\"route_file\":\"" << routeFile << "\",";
+
 	int startTime = strtol(cfgNode->FirstChildElement("time")->FirstChildElement("begin")->Attribute("value"), NULL, 10);
 	int endTime = strtol(cfgNode->FirstChildElement("time")->FirstChildElement("end")->Attribute("value"), NULL, 10);
+
+	//Output start and end time info JSON
+	std::cout << "\"start_time\":" << startTime << ",";
+	std::cout << "\"end_time\":" << endTime << ",";
+
 	//Define the network object. "You are an amazing object, Network, good to have you!"
 	Network network = Network(startTime, endTime);
 
@@ -176,21 +207,29 @@ void runFile(const char * cfgFile)
 
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);
 
+	//Steps array object JSON
+	std::cout << "\"steps\": [";
+
     //Run simulation
     network.runSimulation();
 
+    //End steps array object JSON
+    std::cout << "],";
+
     clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time2);
-	std::cout << diff(time1,time2).tv_sec << ":" << diff(time1,time2).tv_nsec << std::endl;
+	std::cout << "\"simulation_time\":\"" << diff(time1,time2).tv_sec << ":" << diff(time1,time2).tv_nsec << "\"";
 }
 
 int main(int argc, char const *argv[])
 {
+	std::cout << "{";
 	if(argc == 2)
 	{
 		runFile(argv[1]);
 	}else{
 		test();
 	}
+	std::cout << "}" << std::endl;
     return 0;
 }
 

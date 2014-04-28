@@ -80,7 +80,13 @@ void VehicleControl::deleteVehicle(Vehicle *vehicle)
 void VehicleControl::refreshTimestep(int timeStep)
 {
     // TODO: Pointer will be invalid when run on CUDA
+    int beforeCars = vehicles.size();
+    int beforeWaiting = waiting.size();
     readyToAdd pred(timeStep, this);
     waiting.erase( thrust::remove_if( waiting.begin(), waiting.end(), pred ), waiting.end() );
     vehicles.erase( thrust::remove_if( vehicles.begin(), vehicles.end(), readyToRemove() ), vehicles.end() );
+    int addedCars = beforeWaiting - waiting.size();
+    int removedCars = (vehicles.size() - beforeCars - addedCars)*-1;
+    std::cout << "\"addedCars\":\"" << addedCars << "\",";
+    std::cout << "\"removedCars\":\"" << removedCars << "\",";
 }

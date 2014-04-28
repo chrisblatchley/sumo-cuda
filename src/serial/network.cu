@@ -68,14 +68,20 @@ void Network::runSimulation()
 {
     while(timeStep < maxTime)
     {
-        printf("\nTime: %d\n", timeStep);
+        //Start JSON step object
+        std::cout << "{";
+
+        //Current timestep JSON property
+        std::cout << "\"step\":" << timeStep << ",";
 
         vehicleController->refreshTimestep(timeStep);
 
+        std::cout << "\"vehicles\": [";
 		for ( thrust::host_vector<Edge*>::iterator it = edges.begin(); it != edges.end(); it++ )
 		{
 			(*it)->runLanes();
 		}
+        std::cout << "]}," << std::endl;
 
         for ( thrust::host_vector<Junction*>::iterator it = junctions.begin(); it != junctions.end(); it++ )
 		{

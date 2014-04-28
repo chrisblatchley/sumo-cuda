@@ -9,6 +9,8 @@
 #include "vehicle.cuh"
 #include "route.cuh"
 #include <cstdio>
+#include <sstream>
+#include <string>
 
 const float Vehicle::ACCEL_FACTOR = 5.0;
 const float Vehicle::CRUISE_ACCEL = 0.0;
@@ -52,9 +54,13 @@ void Vehicle::enterLane(Lane *lane)
  */
 void Vehicle::executeMove()
 {
-    printf("\t%4p: %.2f\n", this, pos);
     pos = nextPos;
-
+    const void * address = static_cast<const void*>(this);
+    std::stringstream ss;
+    ss << address;
+    std::string name = ss.str();
+    pos = nextPos;
+    std::cout << "{ \"vehicle\": \"" << name << "\", \"position\": " << pos << " }";
     //Check if we are done with this edge
     if(pos >= currEdge->length)
     {
